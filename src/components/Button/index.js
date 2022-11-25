@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Button = ({ type, buttonText = '', toggleVisibility }) => {
-  if (type === 'settings') {
+  if (type === 'settings') { 
     return (
       <button
         className="pomodoro-app__preferences"

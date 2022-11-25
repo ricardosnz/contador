@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/header';
-import Controls from './components/Controls/controls';
-import TimerDisplay from './components/TimerDisplay/timerdisplay';
-import Button from './components/Button/button';
-import Settings from './components/Settings/settings';
+import Header from './components/Header';
+import Controls from './components/Controls';
+import TimerDisplay from './components/TimerDisplay';
+import Button from './components/Button';
+import Settings from './components/Settings';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="pomodoro-app">
-      <Header title="Pomodoro" />
+      <Header>Pomodoro</Header>
       <Controls
         timeMode={timeMode}
         setTimeMode={setTimeMode}

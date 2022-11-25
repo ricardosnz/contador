@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './style.css'
 const muteToggle = ({ volume, setVolume }) => {
   const handleClick = (event) => {
     if (volume === 0) {

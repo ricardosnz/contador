@@ -4,7 +4,7 @@ import {
   buildStyles,
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
+import './style.css';
 const TimerDisplay = ({
   timerMode,
   percentage,
@@ -23,9 +23,10 @@ const TimerDisplay = ({
     setButtonText(
       buttonText === 'START' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar'
     );
- };
+  };
 
-  let timesUpMsg = timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
+  let timesUpMsg =
+    timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
 
   let timeText = timeLeft === '0:00' ? timesUpMsg : timeLeft;
 

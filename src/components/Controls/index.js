@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './style.css';
 const Controls = ({
   timeMode,
   setTimeMode,
@@ -19,6 +19,7 @@ const Controls = ({
     else if (event.target.id == 'long') setSecondsLeft(longLength * 60);
     else setSecondsLeft(pomoLength * 60);
   };
+  console.log(timeMode);
 
   return (
     <form className="controls">
