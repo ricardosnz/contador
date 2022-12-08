@@ -32,7 +32,7 @@ const Settings = ({
 
   const styles = document.documentElement.style;
 
-  const applySettingss = (event) => {
+  const applySettings = (event) => {
     event.preventDefault();
 
     setPomoLength(event.target.pomodoro.value);
@@ -51,10 +51,27 @@ const Settings = ({
       setSecondsLeft(event.target.longBreak.value * 60);
     else setSecondsLeft(event.target.pomodoro.value * 60);
   };
-  const applySettings = (evt) => {
-    evt.preventDefault();
-    console.log(evt);
+
+  const applySettings = (event) => {
+    event.preventDefault();
+
+    setPomoLength(event.target.pomodoro.value);
+    setShortLength(event.target.shortBreak.value);
+    setLongLength(event.target.longBreak.value);
+    setFontPref(event.target.font.value);
+    setChangeColor(event.target.color.value);
+    closeSettings();
+
+    styles.setProperty('--font-current', fonts[event.target.font.value]);
+    styles.setProperty('--accent-color', colors[event.target.color.value]);
+
+    if (timerMode == 'short')
+      setSecondsLeft(event.target.shortBreak.value * 60);
+    else if (timerMode == 'long')
+      setSecondsLeft(event.target.longBreak.value * 60);
+    else setSecondsLeft(event.target.pomodoro.value * 60);
   };
+
   if (visible) {
     return (
       <div className="preferences preferences--visible">
@@ -68,7 +85,7 @@ const Settings = ({
           <form onSubmit={applySettings}>
             <div className="pane__time-settings">
               <h3>Tiempo (minutos)</h3>
-              <div action="" className="time-settings__form">
+              <div className="time-settings__form">
                 <label htmlFor="pomodoro">Pomodoro</label>
                 <input
                   type="number"
@@ -97,6 +114,7 @@ const Settings = ({
             </div>
 
             <div className="pane__font-preference">
+            
               <h3>Fuentes</h3>
               <input
                 type="radio"
