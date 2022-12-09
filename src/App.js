@@ -9,12 +9,12 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const [timeMode, setTimeMode] = useState('pomo'); // options: pomo, short, long
+  const [timerMode, setTimerMode] = useState('pomo'); // options: pomo, short, long
   const [pomoLength, setPomoLength] = useState(25);
   const [shortLength, setShortLength] = useState(3);
   const [longLength, setLongLength] = useState(15);
-  const [fontpPref, setFontPref] = useState('kumbh'); // options: kumbh, roboto, space
-  const [changeColor, setChangeColor] = useState('default'); // options: default, blue, purple
+  const [fontPref, setFontPref] = useState('kumbh'); // options: kumbh, roboto, space
+  const [accentColor, setAccentColor] = useState('default'); // options: default, blue, purple
   const [secondsLeft, setSecondsLeft] = useState(pomoLength * 60);
   const [isActive, setIsActive] = useState(false);
   const [buttonText, setButtonText] = useState('Comenzar');
@@ -46,13 +46,13 @@ function App() {
   };
 
   const calcPercentage = () => {
-    if (timeMode === 'pomo') {
+    if (timerMode === 'pomo') {
       return (secondsLeft / (pomoLength * 60)) * 100;
     }
-    if (timeMode === 'short') {
+    if (timerMode === 'short') {
       return (secondsLeft / (shortLength * 60)) * 100;
     }
-    if (timeMode === 'long') {
+    if (timerMode === 'long') {
       return (secondsLeft / (longLength * 60)) * 100;
     }
   };
@@ -61,8 +61,8 @@ function App() {
     <div className="pomodoro-app">
       <Header>Pomodoro</Header>
       <Controls
-        timeMode={timeMode}
-        setTimeMode={setTimeMode}
+        timerMode={timerMode}
+        setTimerMode={setTimerMode}
         setSecondsLeft={setSecondsLeft}
         pomoLength={pomoLength}
         shortLength={shortLength}
@@ -72,7 +72,7 @@ function App() {
         setButtonText={setButtonText}
       />
       <TimerDisplay
-        timeMode={timeMode}
+        timerMode={timerMode}
         percentage={calcPercentage()}
         timeLeft={formatTimeLeft(secondsLeft)}
         isActive={isActive}
@@ -90,13 +90,13 @@ function App() {
         setShortLength={setShortLength}
         longLength={longLength}
         setLongLength={setLongLength}
-        fontpPref={fontpPref}
+        fontPref={fontPref}
         setFontPref={setFontPref}
-        changeColor={changeColor}
-        setChangeColor={setChangeColor}
+        accentColor={accentColor}
+        setAccentColor={setAccentColor}
         closeSettings={toggleSettingsVisibility}
         setSecondsLeft={setSecondsLeft}
-        timeMode={timeMode}
+        timerMode={timerMode}
       />
     </div>
   );

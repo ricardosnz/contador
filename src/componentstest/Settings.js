@@ -86,35 +86,40 @@ const Settings = ({
             <div className="pane__time-settings">
               <h3>Tiempo (minutos)</h3>
               <div className="time-settings__form">
-                <label htmlFor="pomodoro">Pomodoro</label>
-                <input
-                  type="number"
-                  id="pomodoro"
-                  min="5"
-                  max="90"
-                  defaultValue={pomoLength}
-                />
-                <label htmlFor="short-break">Descanso corto</label>
-                <input
-                  type="number"
-                  id="short-break"
-                  min="1"
-                  max="14"
-                  defaultValue={shortLength}
-                />
-                <label htmlFor="long-break">Descanso largo</label>
-                <input
-                  type="number"
-                  id="long-break"
-                  min="15"
-                  max="30"
-                  defaultValue={longLength}
-                />
+                <label>
+                  Pomodoro
+                  <input
+                    type="number"
+                    id="pomo"
+                    min="5"
+                    max="90"
+                    defaultValue={pomoLength}
+                  />
+                </label>
+                <label>
+                  Descanso corto
+                  <input
+                    type="number"
+                    id="short"
+                    min="1"
+                    max="14"
+                    defaultValue={shortLength}
+                  />
+                </label>
+                <label>
+                  Descanso largo
+                  <input
+                    type="number"
+                    id="long"
+                    min="15"
+                    max="30"
+                    defaultValue={longLength}
+                  />
+                </label>
               </div>
             </div>
 
             <div className="pane__font-preference">
-            
               <h3>Fuentes</h3>
               <input
                 type="radio"

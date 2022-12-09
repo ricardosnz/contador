@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
 const Controls = ({
-  timeMode,
-  setTimeMode,
+  timerMode,
+  setTimerMode,
   setSecondsLeft,
   pomoLength,
   shortLength,
@@ -11,7 +11,7 @@ const Controls = ({
   setButtonText,
 }) => {
   const handleModeChange = (event) => {
-    setTimeMode(event.target.id);
+    setTimerMode(event.target.id);
     setIsActive(false);
     setButtonText('Comenzar');
 
@@ -19,38 +19,40 @@ const Controls = ({
     else if (event.target.id == 'long') setSecondsLeft(longLength * 60);
     else setSecondsLeft(pomoLength * 60);
   };
-  console.log(timeMode);
 
   return (
     <form className="controls">
       <input
         type="radio"
         id="pomo"
-        checked={timeMode === 'pomo'}
+        name="mode"
+        checked={timerMode === 'pomo'}
         onChange={handleModeChange}
       />
       <label htmlFor="pomo" className="controls__button">
-        Pomodoro
+        pomodoro
       </label>
 
       <input
         type="radio"
         id="short"
-        checked={timeMode === 'short'}
+        name="mode"
+        checked={timerMode === 'short'}
         onChange={handleModeChange}
       />
       <label htmlFor="short" className="controls__button">
-        Descanso corto
+        short break
       </label>
 
       <input
         type="radio"
         id="long"
-        checked={timeMode === 'long'}
+        name="mode"
+        checked={timerMode === 'long'}
         onChange={handleModeChange}
       />
       <label htmlFor="long" className="controls__button">
-        Descanso largo
+        long break
       </label>
     </form>
   );
