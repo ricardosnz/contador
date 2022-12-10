@@ -5,28 +5,17 @@ import {
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './style.css';
-const TimerDisplay = ({
-  timerMode,
-  percentage,
-  timeLeft,
-  isActive,
-  setIsActive,
-  buttonText,
-  setButtonText,
-}) => {
+const TimerDisplay = ({ timerMode, percentage, timeLeft, isActive, setIsActive, buttonText, setButtonText }) => {
   const handleClick = () => {
     if (timeLeft === '0:00') {
       return null;
     }
 
     setIsActive(!isActive);
-    setButtonText(
-      buttonText === 'START' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar'
-    );
+    setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');
   };
 
-  let timesUpMsg =
-    timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
+  let timesUpMsg = timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
 
   let timeText = timeLeft === '0:00' ? timesUpMsg : timeLeft;
 
@@ -38,7 +27,7 @@ const TimerDisplay = ({
         <CircularProgressbarWithChildren
           value={percentage}
           text={timeText}
-          strokeWidth={4}
+          strokeWidth={3}
           styles={buildStyles({
             // How long animation takes to go from one percentage to another, in seconds
             pathTransitionDuration: 0.5,
@@ -50,9 +39,7 @@ const TimerDisplay = ({
             trailColor: 'none',
           })}
         >
-          <button className="display__start-pause" onClick={handleClick}>
-            {buttonText}
-          </button>
+          <button className="display__start-pause">{buttonText}</button>
         </CircularProgressbarWithChildren>
       </div>
     </div>

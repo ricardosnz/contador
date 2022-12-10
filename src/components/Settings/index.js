@@ -1,21 +1,13 @@
 import React from 'react';
 import './style.css'
 import Button from '../Button';
-
+ 
 
 const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength, shortLength, setShortLength, longLength, setLongLength, fontPref, setFontPref, accentColor, setAccentColor, closeSettings, setSecondsLeft, timerMode }) => {
 
-  const colors = {
-    default: '#F87070',
-    blue:   '#70F3F8',
-    purple: '#D881F8',
-  }
+  const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8'}
 
-  const fonts = {
-    kumbh: `'Kumbh Sans', sans-serif`,
-    roboto: `'Roboto Slab', serif`,
-    space: `'Space Mono', monospace`,
-  }
+  const fonts = { kumbh: `'Kumbh Sans', sans-serif`, roboto: `'Roboto Slab', serif`, space: `'Space Mono', monospace` }
 
   const styles = document.documentElement.style
 
@@ -28,7 +20,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
     setFontPref(event.target.font.value)
     setAccentColor(event.target.color.value)
     closeSettings()
-
+    console.log(event,event.target.font.value);
     styles.setProperty("--font-current", fonts[event.target.font.value])
     styles.setProperty("--accent-color", colors[event.target.color.value])
 

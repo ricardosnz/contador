@@ -1,1 +1,39 @@
- 
+.pomodoro-app__preferences {
+  margin-top: 79px;
+  transition: transform 0.15s ease-in-out;
+}
+.pomodoro-app__preferences:hover {
+  transform: scale(1.4) rotate(45deg);
+}
+
+.pane__close-preferences {
+  position: absolute;
+  right: 30px;
+  top: 25px;
+  color: var(--background-body);
+  opacity: 0.5;
+  transform: scale(2.25);
+  transition: transform 0.2s ease-in-out, opacity 0.2s;
+}
+.pane__close-preferences:hover {
+  transform: scale(3.25);
+  opacity: 1;
+}
+
+.pane__apply-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pane__apply-preferences {
+  padding: 20px 40px;
+  border-radius: 36.5px;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: var(--default-accent);
+  color: #ffffff;
+  transition: transform 0.15s ease-in-out;
+}
+.pane__apply-preferences:hover {
+  transform: scale(1.1);
+}

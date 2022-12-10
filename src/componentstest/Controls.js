@@ -9,7 +9,6 @@ const Controls = ({
   setIsActive,
   setButtonText,
 }) => {
-  const shortLength, longLength, pomoLength
   const seconds = {short: shortLength * 60, long: longLength * 60, pomo: pomoLength * 60}
 
   const handleModeChange = (evt) => {

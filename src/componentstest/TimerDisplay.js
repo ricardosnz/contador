@@ -9,7 +9,6 @@ const TimerDisplay = ({
   timerMode,
   percentage,
   timeLeft,
-  isActive,
   setIsActive,
   buttonText,
   setButtonText,
@@ -17,9 +16,10 @@ const TimerDisplay = ({
   const handleClick = () => {
     if (timeLeft === '0:00') return null;
 
-    setIsActive(!isActive);
+    setIsActive((prev) => !prev);
+
     setButtonText(
-      buttonText === 'START' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar'
+      ['Comenzar', 'Reanudar'].includes(buttonText) ? 'Pausa' : 'Reanudar'
     );
   };
 
@@ -36,11 +36,9 @@ const TimerDisplay = ({
         <CircularProgressbarWithChildren
           value={percentage}
           text={timeText}
-          strokeWidth={4}
+          strokeWidth={3}
           styles={buildStyles({
-            // How long animation takes to go from one percentage to another, in seconds
             pathTransitionDuration: 0.5,
-            // Colors & Fonts
             pathColor: 'var(--accent-color)',
             textColor: 'var(--text)',
             textSize: textSize,
@@ -48,9 +46,7 @@ const TimerDisplay = ({
             trailColor: 'none',
           })}
         >
-          <button className="display__start-pause" onClick={handleClick}>
-            {buttonText}
-          </button>
+          <button className="display__start-pause">{buttonText}</button>
         </CircularProgressbarWithChildren>
       </div>
     </div>
