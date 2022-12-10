@@ -1,0 +1,181 @@
+.preferences {
+  position: fixed;
+  place-content: center;
+  display: none;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+}
+.preferences--visible {
+  display: grid;
+  animation: fade ease-in 0.2s;
+}
+
+.preferences__pane {
+  position: relative;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  background: var(--background-preferences);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 3.25s all ease-in-out;
+}
+
+.preferences__pane h2 {
+  font-family: var(--font-default);
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--settings-heading);
+}
+.preferences__pane h2,
+.pane__time-settings,
+.pane__color-preference,
+.pane__font-preference {
+  padding: 24px 0;
+  border-bottom: 1px solid #e3e1e1;
+}
+
+.time-settings__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  row-gap: 8px;
+}
+
+.pane__time-settings h3,
+.pane__font-preference h3,
+.pane__color-preference h3 {
+  margin-bottom: 0.8rem;
+}
+
+/* hide radio inputs so the labels can be styled */
+/* display: none; will make them unfocusable / no keyboard navigation */
+.pane__color-preference input[type='radio'],
+.pane__font-preference input[type='radio'] {
+  opacity: 0;
+  width: 0;
+}
+
+.pane__color-preference input[type='radio'] + label,
+.pane__font-preference input[type='radio'] + label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: transform 0.25s ease-in-out, background-color 0.25s ease-in-out;
+}
+
+.pane__color-preference input[type='radio'] + label:hover,
+.pane__font-preference input[type='radio'] + label:hover {
+  transform: scale(1.1);
+}
+
+.pane__font-preference,
+.pane__color-preference {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.5rem;
+}
+
+.font-preference__kumbh,
+.font-preference__roboto,
+.font-preference__space,
+.color-preference__default,
+.color-preference__blue,
+.color-preference__purple {
+  width: 40px;
+  height: 40px;
+  border-radius: 90%;
+  font-size: 1rem;
+}
+
+.font-preference__kumbh,
+.font-preference__roboto,
+.font-preference__space {
+  background: var(--input-background);
+  color: var(--text-dark);
+}
+
+.pane__font-preference input[type='radio']:checked + label {
+  background: var(--settings-heading);
+  color: #fff;
+}
+
+.pane__font-preference input[type='radio']:hover + label {
+  background: var(--settings-heading);
+  color: #fff;
+  opacity: 0.9;
+}
+
+.font-preference__kumbh {
+  font-family: var(--font-default);
+  font-weight: bold;
+}
+
+.font-preference__roboto {
+  font-family: var(--font-roboto-slab);
+  font-weight: normal;
+}
+
+.font-preference__space {
+  font-family: var(--font-space-mono);
+  font-weight: bold;
+}
+
+.color-preference__default {
+  background-color: var(--default-accent);
+}
+.color-preference__blue {
+  background-color: var(--blue-accent);
+}
+.color-preference__purple {
+  background-color: var(--purple-accent);
+}
+
+.pane__color-preference input[type='radio']:checked + label {
+  background-image: url("data:image/svg+xml,%3Csvg width='15' height='11' viewBox='0 0 15 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5.5L4.95263 9.45263L13.4053 1' stroke='%23161932' stroke-width='2'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pane__color-preference input[type='radio']:hover + label {
+  background-image: url("data:image/svg+xml,%3Csvg width='15' height='11' viewBox='0 0 15 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5.5L4.95263 9.45263L13.4053 1' stroke='%23161932' stroke-width='2'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (min-width: 600px) {
+  .preferences__pane {
+    border-radius: 1.5rem;
+  }
+
+  .preferences__pane h2 {
+    font-size: 28px;
+  }
+
+  .pane__time-settings h3 {
+    margin: 14px 20px 12px 20px;
+  }
+
+  .pane__time-settings h3,
+  .pane__font-preference h3,
+  .pane__color-preference h3 {
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 5px;
+  }
+
+  .pane__font-preference h3,
+  .pane__color-preference h3 {
+    width: 300px;
+    margin-top: 18px;
+  }
+
+  .time-settings__form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 22px;
+    margin: 12px 20px 14px 20px;
+  }
+}

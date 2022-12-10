@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import Button from '../Button';
 
-const Settings = ({
+const Settings = ({ 
   visible,
   toggleSettingsVisibility,
   pomoLength,

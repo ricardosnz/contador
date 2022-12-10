@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css'
 import Button from '../Button';
- 
+  
 
 const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength, shortLength, setShortLength, longLength, setLongLength, fontPref, setFontPref, accentColor, setAccentColor, closeSettings, setSecondsLeft, timerMode }) => {
 
