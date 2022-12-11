@@ -30,6 +30,7 @@
 html,
 body {
   height: 100%;
+  width: 100%;
 }
 
 button,
@@ -42,50 +43,37 @@ button {
 }
 
 body {
-  display: flex;
-  justify-content: center;
+  margin: auto;
   background: var(--background-body);
 }
 
 .pomodoro-app {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: 667px;
+  gap: 3rem;
   font-family: var(--font-current);
 }
 
 h1 {
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: var(--font-current);
   color: var(--text);
   text-align: center;
-  font-style: normal;
   font-weight: bold;
   font-size: 24px;
-  line-height: 24px;
   margin-top: 32px;
 }
 button:focus:not(:focus-visible) {
   outline: 0;
 }
 
-@keyframes fade {
-  from {
-    opacity: 0%;
-  }
-  to {
-    opacity: 100%;
-  }
-}
-
 h3 {
   width: 100%;
   text-align: center;
   font-family: var(--font-default);
-  font-style: normal;
   font-weight: bold;
   font-size: 11px;
-  line-height: 11px;
   text-transform: uppercase;
   letter-spacing: 4.23077px;
   color: var(--settings-heading);
@@ -109,8 +97,7 @@ input {
   border: none;
   border-radius: 10px;
   background: var(--input-background);
-  font-family: var();
-  font-style: normal;
+  font-family: var(--font-default);
   font-weight: bold;
   font-size: 14px;
   line-height: 14px;
@@ -125,8 +112,9 @@ input[type='number']::-webkit-inner-spin-button {
     no-repeat center center;
   height: 21px;
   width: 14px;
-  opacity: 0.5; /* shows Spin Buttons per default (Chrome >= 39) */
+  opacity: 0.5;
   cursor: pointer;
+  transition: opacity 200ms;
 }
 
 input[type='number']::-webkit-inner-spin-button:hover,
@@ -137,26 +125,14 @@ input[type='number']::-webkit-inner-spin-button:active {
 @media screen and (min-width: 600px) {
   h1 {
     font-size: 32px;
-    line-height: 32px;
-    margin-top: 48px;
-  }
-
-  .pomodoro-app {
-    height: 100%;
   }
 
   .controls {
-    width: 373px;
-    margin: 55px 0 45px 0;
+    width: 573px;
   }
 
   .controls__button {
     font-size: 14px;
-  }
-
-  .timer {
-    width: 410px;
-    height: 410px;
   }
 
   label {

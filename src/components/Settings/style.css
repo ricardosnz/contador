@@ -125,6 +125,7 @@
   background-color: var(--purple-accent);
 }
 
+.pane__color-preference input[type='radio']:checked + label,
 .pane__color-preference input[type='radio']:hover + label {
   background-image: url("data:image/svg+xml,%3Csvg width='15' height='11' viewBox='0 0 15 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5.5L4.95263 9.45263L13.4053 1' stroke='%23161932' stroke-width='2'/%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;

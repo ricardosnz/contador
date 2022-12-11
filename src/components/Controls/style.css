@@ -6,8 +6,9 @@
   border-radius: 31.5px;
   max-width: 400px;
   padding: 8px 6px;
-  margin: 45px 0 48px 0;
   z-index: 100;
+
+  position: relative;
 }
 
 /* hide radio inputs so the labels can be styled */
@@ -37,3 +38,23 @@
   background: var(--accent-color);
   animation: fade ease-in 0.2s;
 }
+
+.controls__button:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 8px;
+  z-index: 1;
+  background-color: rgba(0, 255, 255, 0.589);
+  padding: 24px 46px;
+  border-radius: 26.5px;
+  transition: transform 200ms ease-in-out;
+}
+
+.controls:hover .controls__button:nth-child(2)::after {
+  transform: translate(-120px);
+}
+
+/* .controls__button:nth-child(2)::after:hover {
+  transform: translate(-30px);
+} */
