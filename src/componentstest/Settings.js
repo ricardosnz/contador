@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import Button from '../Button';
 
-const Settings = ({ 
+const Settings = ({
   visible,
   toggleSettingsVisibility,
   pomoLength,
@@ -53,6 +53,7 @@ const Settings = ({
         setSecondsLeft(event.target.pomodoro.value * 60);
     }
   };
+  const radio = { name: 'font' };
 
   if (visible) {
     return (
@@ -67,34 +68,38 @@ const Settings = ({
           <form onSubmit={applySettings}>
             <div className="pane__time-settings">
               <h3>Time (Minutes)</h3>
-              <div action="" className="time-settings__form">
-                <label htmlFor="pomodoro">pomodoro</label>
-                <input
-                  type="number"
-                  name="pomodoro"
-                  id="pomodoro"
-                  min="5"
-                  max="90"
-                  defaultValue={pomoLength}
-                />
-                <label htmlFor="short-break">short break</label>
-                <input
-                  type="number"
-                  name="shortBreak"
-                  id="short-break"
-                  min="1"
-                  max="14"
-                  defaultValue={shortLength}
-                />
-                <label htmlFor="long-break">long break</label>
-                <input
-                  type="number"
-                  name="longBreak"
-                  id="long-break"
-                  min="15"
-                  max="30"
-                  defaultValue={longLength}
-                />
+              <div className="time-settings__form">
+                <label>
+                  Pomodoro
+                  <input
+                    type="number"
+                    name="pomodoro"
+                    min="5"
+                    max="90"
+                    defaultValue={pomoLength}
+                  />
+                </label>
+                <label>
+                  Short break
+                  <input
+                    type="number"
+                    name="shortBreak"
+                    min="1"
+                    max="14"
+                    defaultValue={shortLength}
+                  />
+                </label>
+                <label>
+                  Long break
+                  <input
+                    type="number"
+                    name="longBreak"
+                    id="long-break"
+                    min="15"
+                    max="30"
+                    defaultValue={longLength}
+                  />
+                </label>
               </div>
             </div>
 
@@ -170,7 +175,7 @@ const Settings = ({
                 className="color-preference__purple"
               ></label>
             </div>
-            <Button type="apply" buttonText="Apply" />
+            {/* <Button type="apply" buttonText="Apply" /> */}
           </form>
         </div>
       </div>

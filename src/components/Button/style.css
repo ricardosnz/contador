@@ -20,12 +20,15 @@
   opacity: 1;
 }
 
-.pane__apply-row {
+/* .pane__apply-row {
   width: 100%;
   display: flex;
   justify-content: center;
-}
+} */
 .pane__apply-preferences {
+  position: absolute;
+  left: calc(50% - 72px);
+  bottom: 0;
   padding: 20px 40px;
   border-radius: 36.5px;
   font-weight: bold;

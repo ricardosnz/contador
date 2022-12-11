@@ -35,7 +35,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
         setSecondsLeft(event.target.pomodoro.value * 60)
     }
   }
-
+  
   if (visible) {
     return (
       <div className="preferences preferences--visible">
@@ -46,11 +46,11 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
           <div className="pane__time-settings">
             <h3>Time (Minutes)</h3>
             <div action="" className="time-settings__form">
-              <label htmlFor="pomodoro">pomodoro</label>
+              <label htmlFor="pomodoro">Pomodoro</label>
               <input type="number" name="pomodoro" id="pomodoro" min="5" max="90" defaultValue={pomoLength} />
-              <label htmlFor="short-break">short break</label>
+              <label htmlFor="short-break">Short break</label>
               <input type="number" name="shortBreak" id="short-break" min="1" max="14" defaultValue={shortLength} />
-              <label htmlFor="long-break">long break</label>
+              <label htmlFor="long-break">Long break</label>
               <input type="number" name="longBreak" id="long-break" min="15" max="30" defaultValue={longLength} />
             </div>
           </div>
