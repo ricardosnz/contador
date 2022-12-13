@@ -1,6 +1,6 @@
-.timer { 
+.timer {
   max-width: 300px;
-  /* width: 90%; */
+  width: 90%;
   padding: 0.7rem;
   border-radius: 50%;
   background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
@@ -22,13 +22,18 @@
   margin-top: 40%;
   font-family: var(--font-default);
   font-weight: bold;
-  font-size: 16px;
+  font-size: 0.8rem;
   color: var(--text);
-  line-height: 16px;
   letter-spacing: 12px;
-  margin-right: -15px; /* Accounts for extra whitespace letter-spacing introduced */
+  margin-right: -15px;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
+}
+
+@media screen and (min-width: 350px) {
+  .display__start-pause {
+    font-size: 1.2rem;
+  }
 }
 
 .timerrrr {

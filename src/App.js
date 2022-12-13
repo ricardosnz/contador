@@ -24,6 +24,7 @@ function App() {
       const interval = setInterval(() => {
         setSecondsLeft((secondsLeft) => secondsLeft - 1);
       }, 1000);
+      // console.log(secondsLeft);
 
       if (secondsLeft === 0) {
         clearInterval(interval);

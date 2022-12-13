@@ -14,7 +14,7 @@ const TimerDisplay = ({
   setButtonText,
 }) => {
   const handleClick = () => {
-    if (timeLeft === '0:00') return null;
+    if (timeLeft === '0:00') setSecondsLeft(1500);
 
     setIsActive((prev) => !prev);
 

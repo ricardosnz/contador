@@ -1,14 +1,12 @@
 import React from 'react';
 import './style.css';
 const Controls = ({timerMode,setTimerMode,setSecondsLeft,pomoLength,shortLength,longLength,setIsActive,setButtonText}) => {
-  const secondsLen = {short: shortLength * 60,long: longLength * 60,pomo: pomoLength * 60};
+  const secondsLen = {short: shortLength * 60, long: longLength * 60,pomo: pomoLength * 60};
 
   const handleModeChange = ({ target }) => {
     setTimerMode(target.id);
     setIsActive(false);
     setButtonText('Comenzar');
-    // console.log(target)
-
     setSecondsLeft(secondsLen[target.id]);
   }; 
 

@@ -20,7 +20,7 @@ const TimerDisplay = ({ timerMode, percentage, timeLeft, isActive, setIsActive, 
   let timeText = timeLeft === '0:00' ? timesUpMsg : timeLeft;
 
   let textSize = timeLeft === '0:00' ? '12px' : '28px';
-
+  console.log({timeText, timeLeft})
   return (
     <div className="timer" onClick={handleClick}>
       <div className="timer__display">

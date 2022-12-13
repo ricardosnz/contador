@@ -3,13 +3,10 @@ import './style.css';
 const Controls = ({
   setTimeMode,
   setSecondsLeft,
-  pomoLength,
-  shortLength,
-  longLength,
   setIsActive,
   setButtonText,
+  typeLength
 }) => {
-  const seconds = {short: shortLength * 60, long: longLength * 60, pomo: pomoLength * 60}
 
   const handleModeChange = (evt) => {
     evt.preventDefault()
@@ -17,7 +14,7 @@ const Controls = ({
     setIsActive(false);
     setButtonText('Comenzar');
 
-    setSecondsLeft(seconds[evt.submitter.id])
+    setSecondsLeft(typeLength[evt.submitter.id] * 60)
   };
 
 

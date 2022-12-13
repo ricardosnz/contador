@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css'
 import Button from '../Button';
-  
+
 
 const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength, shortLength, setShortLength, longLength, setLongLength, fontPref, setFontPref, accentColor, setAccentColor, closeSettings, setSecondsLeft, timerMode }) => {
 
@@ -20,7 +20,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
     setFontPref(event.target.font.value)
     setAccentColor(event.target.color.value)
     closeSettings()
-    console.log(event,event.target.font.value);
+    // console.log(event,event.target.font.value);
     styles.setProperty("--font-current", fonts[event.target.font.value])
     styles.setProperty("--accent-color", colors[event.target.color.value])
 
@@ -35,6 +35,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
         setSecondsLeft(event.target.pomodoro.value * 60)
     }
   }
+  // console.log(accentColor)
   
   if (visible) {
     return (
@@ -45,14 +46,12 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
         <form onSubmit={applySettings}>
           <div className="pane__time-settings">
             <h3>Time (Minutes)</h3>
-            <div action="" className="time-settings__form">
               <label htmlFor="pomodoro">Pomodoro</label>
               <input type="number" name="pomodoro" id="pomodoro" min="5" max="90" defaultValue={pomoLength} />
               <label htmlFor="short-break">Short break</label>
               <input type="number" name="shortBreak" id="short-break" min="1" max="14" defaultValue={shortLength} />
               <label htmlFor="long-break">Long break</label>
               <input type="number" name="longBreak" id="long-break" min="15" max="30" defaultValue={longLength} />
-            </div>
           </div>
 
           <div className="pane__font-preference">

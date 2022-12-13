@@ -1,20 +1,20 @@
 import React from 'react';
 import './App.css';
-import Header from './componentstest/Header';
-import Controls from './componentstest/Controls';
-import TimerDisplay from './componentstest/TimerDisplay';
-import Button from './componentstest/Button';
-import Settings from './componentstest/Settings';
+import Header from './components/Header';
+import Controls from './components/Controls';
+import TimerDisplay from './components/TimerDisplay';
+import Button from './components/Button';
+import Settings from './components/Settings';
 import { useState, useEffect } from 'react';
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const [timeMode, setTimeMode] = useState('pomo'); // options: pomo, short, long
+  const [timerMode, setTimerMode] = useState('pomo'); // options: pomo, short, long
   const [pomoLength, setPomoLength] = useState(25);
   const [shortLength, setShortLength] = useState(3);
   const [longLength, setLongLength] = useState(15);
-  const [fontpPref, setFontPref] = useState('kumbh'); // options: kumbh, roboto, space
-  const [changeColor, setChangeColor] = useState('default'); // options: default, blue, purple
+  const [fontPref, setFontPref] = useState('kumbh'); // options: kumbh, roboto, space
+  const [accentColor, setAccentColor] = useState('default'); // options: default, blue, purple
   const [secondsLeft, setSecondsLeft] = useState(pomoLength * 60);
   const [isActive, setIsActive] = useState(false);
   const [buttonText, setButtonText] = useState('Comenzar');
@@ -23,7 +23,7 @@ function App() {
     if (isActive) {
       const interval = setInterval(() => {
         setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      }, 1000);
+      }, 1000);      
 
       if (secondsLeft === 0) {
         clearInterval(interval);
@@ -35,41 +35,35 @@ function App() {
     }
   }, [isActive, secondsLeft]);
 
-  const toggleSettingsVisibility = () => setSettingsVisible(!settingsVisible);
+  const toggleSettingsVisibility = (event) => {
+    setSettingsVisible(!settingsVisible);
+  };
 
-  const formatTimeLeft = (seconds) => {
-    return `${Math.floor(seconds / 60)}:${
+  // let formatSecondsToText = {timeText: "24:52", timeLeft: "24:52"}
+  const formatTimeLeft = (seconds) =>
+    `${Math.floor(seconds / 60)}:${
       seconds % 60 > 9 ? seconds % 60 : '0' + (seconds % 60)
     }`;
-  };
 
-  const calcPercentage = () => {
-    if (timeMode === 'pomo') {
-      return (secondsLeft / (pomoLength * 60)) * 100;
-    }
-    if (timeMode === 'short') {
-      return (secondsLeft / (shortLength * 60)) * 100;
-    }
-    if (timeMode === 'long') {
-      return (secondsLeft / (longLength * 60)) * 100;
-    }
-  };
+  const typeLength = { pomo: pomoLength, short: shortLength, long: longLength };
+
+  const calcPercentage = () =>
+    (secondsLeft / (typeLength[timerMode] * 60)) * 100;
 
   return (
     <div className="pomodoro-app">
       <Header>Pomodoro</Header>
       <Controls
-        setTimeMode={setTimeMode}
+        timerMode={timerMode}
+        setTimerMode={setTimerMode}
         setSecondsLeft={setSecondsLeft}
-        pomoLength={pomoLength}
-        shortLength={shortLength}
-        longLength={longLength}
         setIsActive={setIsActive}
         buttonText={buttonText}
         setButtonText={setButtonText}
+        typeLength={typeLength}
       />
       <TimerDisplay
-        timeMode={timeMode}
+        timerMode={timerMode}
         percentage={calcPercentage()}
         timeLeft={formatTimeLeft(secondsLeft)}
         isActive={isActive}
@@ -81,19 +75,18 @@ function App() {
       <Settings
         visible={settingsVisible}
         toggleSettingsVisibility={toggleSettingsVisibility}
-        pomoLength={pomoLength}
+        visible={() => settingsVisible(prev => !prev)}
         setPomoLength={setPomoLength}
-        shortLength={shortLength}
         setShortLength={setShortLength}
-        longLength={longLength}
+        typeLength={typeLength}
         setLongLength={setLongLength}
-        fontpPref={fontpPref}
+        fontPref={fontPref}
         setFontPref={setFontPref}
-        changeColor={changeColor}
-        setChangeColor={setChangeColor}
+        accentColor={accentColor}
+        setAccentColor={setAccentColor}
         closeSettings={toggleSettingsVisibility}
         setSecondsLeft={setSecondsLeft}
-        timeMode={timeMode}
+        timerMode={timerMode}
       />
     </div>
   );
