@@ -12,15 +12,12 @@ const TimerDisplay = ({
   setIsActive,
   buttonText,
   setButtonText,
-}) => {
+}) => { 
   const handleClick = () => {
     if (timeLeft === '0:00') setSecondsLeft(1500);
 
-    setIsActive((prev) => !prev);
-
-    setButtonText(
-      ['Comenzar', 'Reanudar'].includes(buttonText) ? 'Pausa' : 'Reanudar'
-    );
+    setIsActive(!isActive);
+    setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');;
   };
 
   let timesUpMsg =
@@ -33,12 +30,14 @@ const TimerDisplay = ({
   return (
     <div className="timer" onClick={handleClick}>
       <div className="timer__display">
-        <CircularProgressbarWithChildren
+      <CircularProgressbarWithChildren
           value={percentage}
           text={timeText}
           strokeWidth={3}
           styles={buildStyles({
+            // How long animation takes to go from one percentage to another, in seconds
             pathTransitionDuration: 0.5,
+            // Colors & Fonts
             pathColor: 'var(--accent-color)',
             textColor: 'var(--text)',
             textSize: textSize,

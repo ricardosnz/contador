@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './style.css'
 import Button from '../Button';
+
+import {TimerContext} from '../../componentstest/Timer'
 
 
 const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength, shortLength, setShortLength, longLength, setLongLength, fontPref, setFontPref, accentColor, setAccentColor, closeSettings, setSecondsLeft, timerMode }) => {
@@ -24,6 +26,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
     styles.setProperty("--font-current", fonts[event.target.font.value])
     styles.setProperty("--accent-color", colors[event.target.color.value])
 
+    console.log({short: shortLength, evt: event.target.shortBreak.value})
     switch(timerMode) {
       case 'short':
         setSecondsLeft(event.target.shortBreak.value * 60)
@@ -36,6 +39,8 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
     }
   }
   // console.log(accentColor)
+  // const {color} = useContext(TimerContext)
+  // console.log(color)
   
   if (visible) {
     return (

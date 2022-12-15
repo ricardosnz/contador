@@ -1,25 +1,34 @@
 import React from 'react';
 import './style.css';
-const Controls = ({timerMode,setTimerMode,setSecondsLeft,pomoLength,shortLength,longLength,setIsActive,setButtonText}) => {
-  const secondsLen = {short: shortLength * 60, long: longLength * 60,pomo: pomoLength * 60};
+const Controls = ({
+  timerMode,
+  setTimerMode,
+  setSecondsLeft,
+  pomoLength,
+  shortLength,
+  longLength,
+  setIsActive,
+  setButtonText,
+}) => {
+  const secondsLen = {pomo: pomoLength * 60,short: shortLength * 60,long: longLength * 60};
 
-  const handleModeChange = ({ target }) => {
-    setTimerMode(target.id);
+  const handleModeChange = ({ target: {id} }) => {
+    setTimerMode(id);
     setIsActive(false);
     setButtonText('Comenzar');
-    setSecondsLeft(secondsLen[target.id]);
-  }; 
+    setSecondsLeft(secondsLen[id]);
+  };
 
   return (
     <form className="controls">
-      <input type="radio" id="pomo" checked={timerMode === 'pomo'} onChange={handleModeChange} />
-      <label htmlFor="pomo" className="controls__button">pomodoro</label>
-
-      <input type="radio" id="short" checked={timerMode === 'short'} onChange={handleModeChange} />
-      <label htmlFor="short" className="controls__button">short break</label>
-
-      <input type="radio" id="long" checked={timerMode === 'long'} onChange={handleModeChange} />
-      <label htmlFor="long" className="controls__button">long break</label>
+      {Object.keys(secondsLen).map((timer) => (
+        <>
+          <input type="radio" id={timer} checked={timerMode === timer} onChange={handleModeChange} />
+          <label htmlFor={timer} className="controls__button">
+            {timer !== 'pomo' ? `${timer} break` : 'pomodoro'}
+          </label>
+        </>
+      ))}
     </form>
   );
 };

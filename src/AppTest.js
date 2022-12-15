@@ -23,7 +23,7 @@ function App() {
     if (isActive) {
       const interval = setInterval(() => {
         setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      }, 1000);      
+      }, 1000);
 
       if (secondsLeft === 0) {
         clearInterval(interval);
@@ -75,7 +75,7 @@ function App() {
       <Settings
         visible={settingsVisible}
         toggleSettingsVisibility={toggleSettingsVisibility}
-        visible={() => settingsVisible(prev => !prev)}
+        visible={() => settingsVisible((prev) => !prev)}
         setPomoLength={setPomoLength}
         setShortLength={setShortLength}
         typeLength={typeLength}

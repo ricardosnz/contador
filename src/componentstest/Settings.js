@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
-import Button from '../Button';
+import Button from './Button';
+
+import { Colors, Fonts } from './Colors';
 
 const textTranform = (str) => {
   let [first, ...rest] = str.split(' ');
@@ -15,18 +17,16 @@ const textTranform = (str) => {
 const Settings = ({
   visible,
   toggleSettingsVisibility,
-  setPomoLength,  
+  setPomoLength,
   typeLength,
   setShortLength,
   setLongLength,
-  fontPref,
-  setFontPref,
-  accentColor,
-  setAccentColor,
-  closeSettings,
   setSecondsLeft,
   timerMode,
 }) => {
+  const [accentColor, setAccentColor] = useState('default');
+  const [fontPref, setFontPref] = useState('kumbh');
+
   const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8' };
 
   const fonts = {
@@ -39,30 +39,21 @@ const Settings = ({
 
   const applySettings = (event) => {
     event.preventDefault();
+    const { target } = event;
+    const { pomodoro, shortBreak, longBreak, font, color } = target;
 
-    const {target} = event
+    setPomoLength(pomodoro.value);
+    setShortLength(shortBreak.value);
+    setLongLength(longBreak.value);
 
-    setPomoLength(target.pomodoro.value);
-    setShortLength(target.shortBreak.value);
-    setLongLength(target.longBreak.value);
+    setFontPref(font.value);
+    setAccentColor(color.value);
+    toggleSettingsVisibility();
 
-    setFontPref(target.font.value);
-    setAccentColor(target.color.value);
-    closeSettings();
+    styles.setProperty('--font-current', fonts[font.value]);
+    styles.setProperty('--accent-color', colors[color.value]);
 
-    styles.setProperty('--font-current', fonts[target.font.value]);
-    styles.setProperty('--accent-color', colors[target.color.value]);
-
-    switch (timerMode) {
-      case 'short':
-        setSecondsLeft(target.shortBreak.value * 60);
-        break;
-      case 'long':
-        setSecondsLeft(target.longBreak.value * 60);
-        break;
-      default:
-        setSecondsLeft(target.pomodoro.value * 60);
-    }
+    setSecondsLeft(typeLength[timerMode] * 60);
   };
 
   if (!visible) return null;
@@ -78,72 +69,41 @@ const Settings = ({
         <form onSubmit={applySettings}>
           <div className="pane__time-settings">
             <h3>Time (Minutes)</h3>
-              <label htmlFor="pomodoro">Pomodoro</label>
-              <input
-                type="number"
-                name="pomodoro"
-                id="pomodoro"
-                min="5"
-                max="90"
-                defaultValue={typeLength['pomo']}
-              />
-              <label htmlFor="short-break">Short break</label>
-              <input
-                type="number"
-                name="shortBreak"
-                id="short-break"
-                min="1"
-                max="14"
-                defaultValue={typeLength['short']}
-              />
-              <label htmlFor="long-break">Long break</label>
-              <input
-                type="number"
-                name="longBreak"
-                id="long-break"
-                min="15"
-                max="30"
-                defaultValue={typeLength['long']}
-              />
+            <label htmlFor="pomodoro">Pomodoro</label>
+            <input
+              type="number"
+              name="pomodoro"
+              id="pomodoro"
+              min="5"
+              max="90"
+              defaultValue={typeLength['pomo']}
+            />
+            <label htmlFor="short-break">Short break</label>
+            <input
+              type="number"
+              name="shortBreak"
+              id="short-break"
+              min="1"
+              max="14"
+              defaultValue={typeLength['short']}
+            />
+            <label htmlFor="long-break">Long break</label>
+            <input
+              type="number"
+              name="longBreak"
+              id="long-break"
+              min="15"
+              max="30"
+              defaultValue={typeLength['long']}
+            />
           </div>
           <div className="pane__font-preference">
             <h3>Font</h3>
-            {['kumbh', 'roboto', 'space'].map((font, index) => (
-              <>
-                <input
-                  type="radio"
-                  id={`fontPref${index + 1}`}
-                  name="font"
-                  value={font}
-                  defaultChecked={fontPref === font}
-                />
-                <label
-                  htmlFor={`fontPref${index + 1}`}
-                  className={`font-preference__${font}`}
-                >
-                  Aa
-                </label>
-              </>
-            ))}
+            <Fonts fontPref={fontPref} />
           </div>
-
           <div className="pane__color-preference">
             <h3>Color</h3>
-            {['default', 'blue', 'purple'].map((color, index) => (
-              <>
-                <input
-                  type="radio"
-                  id={`colorPref${index + 1}`}
-                  name="color"
-                  value={color}
-                  defaultChecked={accentColor === color}
-                />
-                <label
-                  htmlFor={`colorPref${index + 1}`}
-                  className={`color-preference__${color}`}
-                ></label>
-              </>
-            ))}
+            <Colors accentColor={accentColor} />
           </div>
           <Button type="apply" buttonText="Apply" />
         </form>

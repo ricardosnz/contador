@@ -10,17 +10,15 @@ const TimerDisplay = ({ timerMode, percentage, timeLeft, isActive, setIsActive, 
     if (timeLeft === '0:00') {
       return null;
     }
-
-    setIsActive(!isActive);
-    setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');
+    setIsActive(active => !active);
+    setButtonText(['Comenzar', 'Reanudar'].includes(buttonText) ? 'Pausa' : 'Reanudar')
   };
-
+ 
   let timesUpMsg = timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
 
   let timeText = timeLeft === '0:00' ? timesUpMsg : timeLeft;
 
   let textSize = timeLeft === '0:00' ? '12px' : '28px';
-  console.log({timeText, timeLeft})
   return (
     <div className="timer" onClick={handleClick}>
       <div className="timer__display">
@@ -28,10 +26,10 @@ const TimerDisplay = ({ timerMode, percentage, timeLeft, isActive, setIsActive, 
           value={percentage}
           text={timeText}
           strokeWidth={3}
+          backgroundPadding
+          counterClockwise
           styles={buildStyles({
-            // How long animation takes to go from one percentage to another, in seconds
             pathTransitionDuration: 0.5,
-            // Colors & Fonts
             pathColor: 'var(--accent-color)',
             textColor: 'var(--text)',
             textSize: textSize,

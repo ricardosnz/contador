@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Controls from './components/Controls';
 import TimerDisplay from './components/TimerDisplay';
 import Button from './components/Button';
 import Settings from './components/Settings';
-import { useState, useEffect } from 'react';
+
+import TodoProvider from './componentstest/Timer'
+
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);
@@ -57,9 +59,12 @@ function App() {
       return (secondsLeft / (longLength * 60)) * 100;
     }
   };
+  
 
   return (
     <div className="pomodoro-app">
+      {/* <TodoProvider> */}
+
       <Header>Pomodoro</Header>
       <Controls
         timerMode={timerMode}
@@ -98,7 +103,8 @@ function App() {
         closeSettings={toggleSettingsVisibility}
         setSecondsLeft={setSecondsLeft}
         timerMode={timerMode}
-      />
+        />
+        {/* </TodoProvider> */}
     </div>
   );
 }
