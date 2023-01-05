@@ -1,0 +1,4 @@
+.header__title {
+  text-transform: capitalize;
+  text-decoration: double underline var(--accent-color);
+}

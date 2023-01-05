@@ -1,8 +1,11 @@
 .pomodoro-app__preferences {
-  transition: transform 200ms ease-in-out;
+  transition: transform 200ms ease-in;
 }
 .pomodoro-app__preferences:hover {
   transform: scale(1.4) rotate(60deg);
+}
+.pomodoro-app__preferences:active {
+  transform: scale(0.8);
 }
 
 .pane__close-preferences {
@@ -11,12 +14,14 @@
   top: 28px;
   color: var(--background-body);
   opacity: 0.5;
-  transform: scale(2.25);
-  transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+  transform: scale(2.5);
+  transition: transform 200ms ease-in, opacity 200ms ease-in;
 }
 .pane__close-preferences:hover {
-  transform: scale(3.25);
   opacity: 1;
+}
+.pane__close-preferences:active {
+  transform: scale(2);
 }
 
 .pane__apply-preferences {
@@ -26,11 +31,15 @@
   padding: 20px 40px;
   border-radius: 36.5px;
   font-weight: bold;
+  opacity: 0.8;
   font-size: 16px;
   background-color: var(--default-accent);
   color: #ffffff;
-  transition: transform 200ms ease-in-out;
+  transition: transform 200ms ease-in, opacity 200ms ease-in;
 }
 .pane__apply-preferences:hover {
-  transform: scale(1.1);
+  opacity: 1;
+}
+.pane__apply-preferences:active {
+  transform: scale(0.8);
 }
