@@ -2,17 +2,24 @@ import React from 'react';
 import './style.css';
 import Svg from '../Svg';
 
-const typesClassName = {
+const className = {
   settings: 'pomodoro-app__preferences',
   close: 'pane__close-preferences',
   apply: 'pane__apply-preferences',
 };
 
-const Button = ({ type = '', buttonText = '', toggleVisibility }) =>
-  Object.keys(typesClassName).includes(type) && (
-    <button className={typesClassName[type]} name={type == 'settings' && 'settings'} onClick={toggleVisibility}>
-      {type !== 'settings' ? buttonText : <Svg path={type} />}
-    </button>
-);
-
-export default Button;
+export default function Button({ type = '', buttonText = '', toggleVisibility }) {
+  const isButton = Object.keys(className).includes(type);
+  if (isButton) {
+    const content = type !== 'settings' ? buttonText : <Svg path={type} />;
+    return (
+      <button
+        className={className[type]}
+        name={type === 'settings' && 'settings'}
+        onClick={toggleVisibility}
+      >
+        {content}
+      </button>
+    );
+  }
+}

@@ -1,5 +1,3 @@
-
-
 export const changeStyle = ({ font, color }) => {
   const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8' };
   const fonts = {

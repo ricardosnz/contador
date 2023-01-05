@@ -120,17 +120,3 @@ input[type='number']::-webkit-inner-spin-button:hover,
 input[type='number']::-webkit-inner-spin-button:active {
   opacity: 1;
 }
-
-@media screen and (min-width: 600px) {
-  h1 {
-    font-size: 32px;
-  }
-
-  .controls {
-    width: 573px;
-  }
-
-  .controls__button {
-    font-size: 14px;
-  }
-}

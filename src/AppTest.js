@@ -2,18 +2,13 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import Controls from './components/Controls';
-import TimerDisplay from './components/TimerDisplay';
+import TimerDisplay from './componentstest/TimerDisplay';
 import Button from './components/Button';
 import Settings from './componentstest/Settings';
+// import Settings from './components/Settings';
 import { useState, useEffect } from 'react';
 
-const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8' };
-
-const fonts = {
-  kumbh: `'Kumbh Sans', sans-serif`,
-  roboto: `'Roboto Slab', serif`,
-  space: `'Space Mono', monospace`,
-};
+import { changeStyle } from './utils';
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);
@@ -53,48 +48,48 @@ function App() {
       seconds % 60 > 9 ? seconds % 60 : '0' + (seconds % 60)
     }`;
 
-  const typeLength = { pomo: pomoLength, short: shortLength, long: longLength };
+  const changeActive = () => {
+    if (formatTimeLeft(secondsLeft) === '0:00') return null;
+
+    const text =
+      buttonText === 'Comenzar' || buttonText === 'Reanudar'
+        ? 'Pausa'
+        : 'Reanudar';
+    setIsActive(!isActive);
+    setButtonText(text);
+  };
+
+  const timersLength = { pomo: pomoLength, short: shortLength, long: longLength };
 
   const applySettings = ({ values }) => {
-    const {
-      pomoLength,
-      shortLength,
-      longLength,
-      fontPref,
-      accentColor,
-      secondsLeft,
-    } = values;
+    const { pomoLength, shortLength, longLength, fontPref, accentColor } =
+      values;
     setPomoLength(pomoLength);
     setShortLength(shortLength);
     setLongLength(longLength);
     setFontPref(fontPref);
     setAccentColor(accentColor);
-    setSecondsLeft(secondsLeft);
+    setSecondsLeft(timersLength[timerMode] * 60);
     changeStyle({ font: fontPref, color: accentColor });
   };
 
   const calcPercentage = () =>
-    (secondsLeft / (typeLength[timerMode] * 60)) * 100;
+    (secondsLeft / (timersLength[timerMode] * 60)) * 100;
 
   const changeTimerMode = ({ timerMode }) => {
     // controls.js
     setTimerMode(timerMode);
     setIsActive(false);
     setButtonText('Comenzar');
-    setSecondsLeft(typeLength[timerMode] * 60);
+    setSecondsLeft(timersLength[timerMode] * 60);
   };
 
   return (
     <div className="pomodoro-app">
-      <Header>Pomodoro</Header>
+      <Header>{timerMode}</Header>
       <Controls
         timerMode={timerMode}
-        setTimerMode={setTimerMode}
-        setSecondsLeft={setSecondsLeft}
-        setIsActive={setIsActive}
-        buttonText={buttonText}
-        setButtonText={setButtonText}
-        typeLength={typeLength}
+        timersLength={timersLength}
         changeModeTimer={changeTimerMode}
       />
       <TimerDisplay
@@ -105,24 +100,16 @@ function App() {
         setIsActive={setIsActive}
         buttonText={buttonText}
         setButtonText={setButtonText}
+        changeActive={changeActive}
       />
       <Button type="settings" toggleVisibility={toggleSettingsVisibility} />
       <Settings
         visible={settingsVisible}
-        toggleSettingsVisibility={toggleSettingsVisibility}
-        visible={() => settingsVisible((prev) => !prev)}
-        applySettings={applySettings}
-        setPomoLength={setPomoLength}
-        setShortLength={setShortLength}
-        typeLength={typeLength}
-        setLongLength={setLongLength}
         fontPref={fontPref}
-        setFontPref={setFontPref}
         accentColor={accentColor}
-        setAccentColor={setAccentColor}
-        closeSettings={toggleSettingsVisibility}
-        setSecondsLeft={setSecondsLeft}
-        timerMode={timerMode}
+        timersLength={timersLength}
+        applySettings={applySettings}
+        toggleSettingsVisibility={toggleSettingsVisibility}
       />
 
       {/* <Button type="settings" toggleVisibility={toggleSettingsVisibility} />

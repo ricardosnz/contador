@@ -13,22 +13,17 @@ const TimerDisplay = ({
   setIsActive,
   buttonText,
   setButtonText,
-}) => { 
+  changeActive
+}) => {
+  
   const handleClick = () => {
     if (timeLeft === '0:00') return null
 
-    setIsActive(!isActive);
+    setIsActive(prev => !prev);
     setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');
   };
 
-  const changeActive = () => {
-    if (timeLeft === '0:00') return null
-    const text = buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar'
-    setState(prevState => ({
-      ...prevState, isActive: !prevState.isActive,
-      buttonText: text
-    }))
-  }
+  
 
   let timesUpMsg =
     timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
@@ -38,7 +33,7 @@ const TimerDisplay = ({
   let textSize = timeLeft === '0:00' ? '12px' : '28px';
 
   return (
-    <div className="timer" onClick={handleClick}>
+    <div className="timer" onClick={changeActive}>
       <div className="timer__display">
       <CircularProgressbarWithChildren
           value={percentage}

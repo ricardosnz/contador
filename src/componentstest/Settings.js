@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import '../components/Settings/style.css';
-import Button from './Button';
+import './style.css';
+import Button from '../components/Button';
 
 import { Colors, Fonts } from './Colors';
 
@@ -16,11 +16,11 @@ const textTranform = (str) => {
 
 const Settings = ({
   visible,
-  toggleSettingsVisibility,
-  typeLength,
-  applySettings,
   fontPref,
   accentColor,
+  timersLength,
+  applySettings,
+  toggleSettingsVisibility,
 }) => {
   const handleSubmit = () => {
     evt.preventDefault();
@@ -31,36 +31,9 @@ const Settings = ({
       longLength: longBreak.value,
       fontPref: font.value,
       accentColor: color.value,
-      secondsLeft: typeLength[timerMode] * 60,
     };
     applySettings({ values });
     toggleSettingsVisibility();
-  };
-
-  const inputsSetting = {
-    time: [
-      {
-        name: 'pomodoro',
-        id: 'pomodoro',
-        min: '5',
-        max: '90',
-        default: typeLength.pomo,
-      },
-      {
-        name: 'shortBreak',
-        id: 'short-break',
-        min: '1',
-        max: '14',
-        default: typeLength.short,
-      },
-      {
-        name: 'longBreak',
-        id: 'long-break',
-        min: '15',
-        max: '30',
-        default: typeLength.long,
-      },
-    ],
   };
 
   return (
@@ -68,7 +41,7 @@ const Settings = ({
       <div className="preferences__pane">
         <Button
           type="close"
-          text="×"
+          buttonText="×"
           toggleVisibility={toggleSettingsVisibility}
         />
         <h2>Settings</h2>
@@ -82,7 +55,7 @@ const Settings = ({
               id="pomodoro"
               min="5"
               max="90"
-              defaultValue={typeLength.pomo}
+              defaultValue={timersLength.pomo}
             />
             <label htmlFor="short-break">Short break</label>
             <input
@@ -91,7 +64,7 @@ const Settings = ({
               id="short-break"
               min="1"
               max="14"
-              defaultValue={typeLength.short}
+              defaultValue={timersLength.short}
             />
             <label htmlFor="long-break">Long break</label>
             <input
@@ -100,7 +73,7 @@ const Settings = ({
               id="long-break"
               min="15"
               max="30"
-              defaultValue={typeLength.long}
+              defaultValue={timersLength.long}
             />
           </div>
 
@@ -200,7 +173,7 @@ const applySettingsss = (event) => {
   styles.setProperty('--font-current', fonts[font.value]);
   styles.setProperty('--accent-color', colors[color.value]);
 
-  setSecondsLeft(typeLength[timerMode] * 60);
+  setSecondsLeft(timersLength[timerMode] * 60);
 };
 
 const setting = () => {
@@ -253,6 +226,31 @@ const setting = () => {
     { id: 'colorPref2', name: 'blue' },
     { id: 'colorPref3', name: 'purple' },
   ];
+  const inputsSetting = {
+    time: [
+      {
+        name: 'pomodoro',
+        id: 'pomodoro',
+        min: '5',
+        max: '90',
+        default: timersLength.pomo,
+      },
+      {
+        name: 'shortBreak',
+        id: 'short-break',
+        min: '1',
+        max: '14',
+        default: timersLength.short,
+      },
+      {
+        name: 'longBreak',
+        id: 'long-break',
+        min: '15',
+        max: '30',
+        default: timersLength.long,
+      },
+    ],
+  };
 
   if (!visible) {
     return (

@@ -1,26 +1,10 @@
 import React from 'react';
 import './style.css';
-const Controls = ({
-  timerMode,
-  setTimerMode,
-  setSecondsLeft,
-  pomoLength,
-  shortLength,
-  longLength,
-  setIsActive,
-  setButtonText,
 
-  typeLength,
-  changeModeTimer,
-}) => {
+export default function Controls ({ timerMode, timersLength, changeModeTimer }) {
   const handleModeChange = ({ target: { id } }) =>
     changeModeTimer({ timerMode: id });
-
-  // setTimerMode(id);
-  // setIsActive(false);
-  // setButtonText('Comenzar');
-  // setSecondsLeft(typeLength[id] * 60);
-  const timerKeys = Object.keys(typeLength);
+  const timerKeys = Object.keys(timersLength);
   return (
     <form className="controls">
       {timerKeys.map((timerKey) => {
@@ -29,11 +13,8 @@ const Controls = ({
         const isChecked = timerMode === timerKey;
         return (
           <>
-            <input type="radio" id={timerKey} checked={isChecked} onChange={handleModeChange}
-            />
-            <label htmlFor={timerKey} className="controls__button">
-              {timerName}
-            </label>
+            <input type="radio" id={timerKey} checked={isChecked} onChange={handleModeChange}/>
+            <label htmlFor={timerKey} className="controls__button">{timerName}</label>
           </>
         );
       })}
@@ -41,4 +22,3 @@ const Controls = ({
   );
 };
 
-export default Controls;
