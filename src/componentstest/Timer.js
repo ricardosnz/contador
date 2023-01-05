@@ -2,7 +2,18 @@ import React, { useState, useEffect, useReducer } from 'react';
 
 export const TimerContext = React.createContext();
 
-const initialState = { timerMode: 'pomo', setting: false };
+const initialState = {
+  timerMode: 'pomo',
+  fontPref: 'kumbh',
+  accentColor: 'default',
+  settingsVisible: false,
+  isActive: false,
+  pomoLength: 25,
+  shortLength: 3,
+  longLength: 15,
+  secondsLeft: 1500,
+  buttonText: 'comenzar',
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -15,35 +26,36 @@ const reducer = (state, action) => {
   }
 };
 
+
+
 const TimerProvider = ({ children }) => {
-  const [settingsVisible, setSettingsVisible] = useState(false);
-  const [timerMode, setTimerMode] = useState('pomo'); // options: pomo, short, long
-  const [pomoLength, setPomoLength] = useState(25);
-  const [shortLength, setShortLength] = useState(3);
-  const [longLength, setLongLength] = useState(15);
-  const [secondsLeft, setSecondsLeft] = useState(pomoLength * 60);
-  const [isActive, setIsActive] = useState(false);
-  const [buttonText, setButtonText] = useState('Comenzar');
+  const [state, setState] = useState(initialState);
+
+  const { timerMode, fontPref, accentColor, settingsVisible, isActive, pomoLength, shortLength, longLength, secondsLeft } = state;
 
   useEffect(() => {
     if (isActive) {
-      const interval = setInterval(() => {
-        setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      }, 1000);
-
+      const interval = setInterval(
+        () => setSecondsLeft((secondsLeft) => secondsLeft - 1),
+        1000
+      );
       if (secondsLeft === 0) {
         clearInterval(interval);
-        setIsActive(false);
-        setButtonText('');
+        setState((prevState) => ({
+          ...prevState,
+          isActive: false,
+          buttonText: '',
+        }));
       }
-
       return () => clearInterval(interval);
     }
   }, [isActive, secondsLeft]);
 
-  const toggleSettingsVisibility = (event) => {
-    setSettingsVisible(!settingsVisible);
-  };
+  const toggleSettingsVisibility = () =>
+    setState((prevState) => ({
+      ...prevState,
+      settingsVisible: !settingsVisible,
+    }));
 
   // let formatSecondsToText = {timeText: "24:52", timeLeft: "24:52"}
   const formatTimeLeft = (seconds) =>
@@ -56,8 +68,19 @@ const TimerProvider = ({ children }) => {
   const calcPercentage = () =>
     (secondsLeft / (typeLength[timerMode] * 60)) * 100;
 
+  const applySettings = ({ values }) => {
+    setState((prevState) => ({ ...prevState, ...values }));
+    changeStyle({ fonts: fontPref, colors: accentColor });
+    setSecondsLeft(typeLength[timerMode] * 60);
+  };
+
+  const changeMode = (timerMode) => {
+    setState(prevState => ({...prevState, timerMode, isActive: false, buttonText: 'comenzar' }))
+    setSecondsLeft(typeLength[timerMode]*60);
+  }
+
   return (
-    <TimerContext.Provider value={{ color: 'red' }}>
+    <TimerContext.Provider value={{ applySettings, toggleSettingsVisibility, calcPercentage, formatTimeLeft, typeLength, ...state }}>
       {children}
     </TimerContext.Provider>
   );

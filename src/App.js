@@ -6,8 +6,7 @@ import TimerDisplay from './components/TimerDisplay';
 import Button from './components/Button';
 import Settings from './components/Settings';
 
-import TodoProvider from './componentstest/Timer'
-
+import TodoProvider from './componentstest/Timer';
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);
@@ -23,10 +22,10 @@ function App() {
 
   useEffect(() => {
     if (isActive) {
-      const interval = setInterval(() => {
-        setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      }, 1000);
-      // console.log(secondsLeft);
+      const interval = setInterval(
+        () => setSecondsLeft((secondsLeft) => secondsLeft - 1),
+        1000
+      );
 
       if (secondsLeft === 0) {
         clearInterval(interval);
@@ -59,13 +58,21 @@ function App() {
       return (secondsLeft / (longLength * 60)) * 100;
     }
   };
-  
+
+  const typeLength = { pomo: pomoLength, short: shortLength, long: longLength };
+
+  const changeModeTimer = ({ timerMode }) => {
+    setTimerMode(timerMode);
+    setIsActive(false);
+    setButtonText('Comenzar');
+    setSecondsLeft(typeLength[timerMode] * 60);
+  };
 
   return (
     <div className="pomodoro-app">
       {/* <TodoProvider> */}
 
-      <Header>Pomodoro</Header>
+      <Header>Pomodoro</Header>      
       <Controls
         timerMode={timerMode}
         setTimerMode={setTimerMode}
@@ -76,6 +83,8 @@ function App() {
         setIsActive={setIsActive}
         buttonText={buttonText}
         setButtonText={setButtonText}
+        typeLength={typeLength}
+        changeModeTimer={changeModeTimer}
       />
       <TimerDisplay
         timerMode={timerMode}
@@ -86,7 +95,7 @@ function App() {
         buttonText={buttonText}
         setButtonText={setButtonText}
       />
-      <Button type="settings" toggleVisibility={toggleSettingsVisibility} />
+      <Button type="settings" toggleVisibility={toggleSettingsVisibility} />      
       <Settings
         visible={settingsVisible}
         toggleSettingsVisibility={toggleSettingsVisibility}
@@ -103,8 +112,8 @@ function App() {
         closeSettings={toggleSettingsVisibility}
         setSecondsLeft={setSecondsLeft}
         timerMode={timerMode}
-        />
-        {/* </TodoProvider> */}
+      />
+      {/* </TodoProvider> */}
     </div>
   );
 }

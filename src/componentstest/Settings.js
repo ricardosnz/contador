@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './style.css';
+// import '../components/Settings/style.css';
 import Button from './Button';
 
 import { Colors, Fonts } from './Colors';
@@ -17,48 +17,54 @@ const textTranform = (str) => {
 const Settings = ({
   visible,
   toggleSettingsVisibility,
-  setPomoLength,
   typeLength,
-  setShortLength,
-  setLongLength,
-  setSecondsLeft,
-  timerMode,
+  applySettings,
+  fontPref,
+  accentColor,
 }) => {
-  const [accentColor, setAccentColor] = useState('default');
-  const [fontPref, setFontPref] = useState('kumbh');
-
-  const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8' };
-
-  const fonts = {
-    kumbh: `'Kumbh Sans', sans-serif`,
-    roboto: `'Roboto Slab', serif`,
-    space: `'Space Mono', monospace`,
-  };
-
-  const styles = document.documentElement.style;
-
-  const applySettings = (event) => {
-    event.preventDefault();
-    const { target } = event;
+  const handleSubmit = () => {
+    evt.preventDefault();
     const { pomodoro, shortBreak, longBreak, font, color } = target;
-
-    setPomoLength(pomodoro.value);
-    setShortLength(shortBreak.value);
-    setLongLength(longBreak.value);
-
-    setFontPref(font.value);
-    setAccentColor(color.value);
+    const values = {
+      pomoLength: pomodoro.value,
+      shortLength: shortBreak.value,
+      longLength: longBreak.value,
+      fontPref: font.value,
+      accentColor: color.value,
+      secondsLeft: typeLength[timerMode] * 60,
+    };
+    applySettings({ values });
     toggleSettingsVisibility();
-
-    styles.setProperty('--font-current', fonts[font.value]);
-    styles.setProperty('--accent-color', colors[color.value]);
-
-    setSecondsLeft(typeLength[timerMode] * 60);
   };
 
-  if (!visible) return null;
+  const inputsSetting = {
+    time: [
+      {
+        name: 'pomodoro',
+        id: 'pomodoro',
+        min: '5',
+        max: '90',
+        default: typeLength.pomo,
+      },
+      {
+        name: 'shortBreak',
+        id: 'short-break',
+        min: '1',
+        max: '14',
+        default: typeLength.short,
+      },
+      {
+        name: 'longBreak',
+        id: 'long-break',
+        min: '15',
+        max: '30',
+        default: typeLength.long,
+      },
+    ],
+  };
+
   return (
-    <div className="preferences preferences--visible">
+    <div className={`preferences ${visible ? 'preferences--visible' : ''} `}>
       <div className="preferences__pane">
         <Button
           type="close"
@@ -66,7 +72,7 @@ const Settings = ({
           toggleVisibility={toggleSettingsVisibility}
         />
         <h2>Settings</h2>
-        <form onSubmit={applySettings}>
+        <form onSubmit={handleSubmit}>
           <div className="pane__time-settings">
             <h3>Time (Minutes)</h3>
             <label htmlFor="pomodoro">Pomodoro</label>
@@ -76,7 +82,7 @@ const Settings = ({
               id="pomodoro"
               min="5"
               max="90"
-              defaultValue={typeLength['pomo']}
+              defaultValue={typeLength.pomo}
             />
             <label htmlFor="short-break">Short break</label>
             <input
@@ -85,7 +91,7 @@ const Settings = ({
               id="short-break"
               min="1"
               max="14"
-              defaultValue={typeLength['short']}
+              defaultValue={typeLength.short}
             />
             <label htmlFor="long-break">Long break</label>
             <input
@@ -94,16 +100,81 @@ const Settings = ({
               id="long-break"
               min="15"
               max="30"
-              defaultValue={typeLength['long']}
+              defaultValue={typeLength.long}
             />
           </div>
+
           <div className="pane__font-preference">
             <h3>Font</h3>
-            <Fonts fontPref={fontPref} />
+            <input
+              type="radio"
+              id="fontPref1"
+              name="font"
+              value="kumbh"
+              defaultChecked={fontPref === 'kumbh'}
+            />
+            <label htmlFor="fontPref1" className="font-preference__kumbh">
+              Aa
+            </label>
+            <input
+              type="radio"
+              id="fontPref2"
+              name="font"
+              value="roboto"
+              defaultChecked={fontPref === 'roboto'}
+            />
+            <label htmlFor="fontPref2" className="font-preference__roboto">
+              Aa
+            </label>
+            <input
+              type="radio"
+              id="fontPref3"
+              name="font"
+              value="space"
+              defaultChecked={fontPref === 'space'}
+            />
+            <label htmlFor="fontPref3" className="font-preference__space">
+              Aa
+            </label>
           </div>
+
           <div className="pane__color-preference">
             <h3>Color</h3>
-            <Colors accentColor={accentColor} />
+            <input
+              type="radio"
+              id="colorPref1"
+              name="color"
+              value="default"
+              defaultChecked={accentColor === 'default'}
+            />
+            <label
+              htmlFor="colorPref1"
+              className="color-preference__default"
+            ></label>
+
+            <input
+              type="radio"
+              id="colorPref2"
+              name="color"
+              value="blue"
+              defaultChecked={accentColor === 'blue'}
+            />
+            <label
+              htmlFor="colorPref2"
+              className="color-preference__blue"
+            ></label>
+
+            <input
+              type="radio"
+              id="colorPref3"
+              name="color"
+              value="purple"
+              defaultChecked={accentColor === 'purple'}
+            />
+            <label
+              htmlFor="colorPref3"
+              className="color-preference__purple"
+            ></label>
           </div>
           <Button type="apply" buttonText="Apply" />
         </form>
@@ -112,6 +183,25 @@ const Settings = ({
   );
 };
 export default Settings;
+
+const applySettingsss = (event) => {
+  event.preventDefault();
+  const { target } = event;
+  const { pomodoro, shortBreak, longBreak, font, color } = target;
+
+  setPomoLength(pomodoro.value);
+  setShortLength(shortBreak.value);
+  setLongLength(longBreak.value);
+
+  setFontPref(font.value);
+  setAccentColor(color.value);
+  toggleSettingsVisibility();
+
+  styles.setProperty('--font-current', fonts[font.value]);
+  styles.setProperty('--accent-color', colors[color.value]);
+
+  setSecondsLeft(typeLength[timerMode] * 60);
+};
 
 const setting = () => {
   const panel = {

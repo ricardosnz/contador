@@ -10,7 +10,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
   const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8'}
 
   const fonts = { kumbh: `'Kumbh Sans', sans-serif`, roboto: `'Roboto Slab', serif`, space: `'Space Mono', monospace` }
-
+ 
   const styles = document.documentElement.style
 
   const applySettings = (event) => {
@@ -38,13 +38,9 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
         setSecondsLeft(event.target.pomodoro.value * 60)
     }
   }
-  // console.log(accentColor)
-  // const {color} = useContext(TimerContext)
-  // console.log(color)
-  
-  if (visible) {
+
     return (
-      <div className="preferences preferences--visible">
+      <div className={`preferences ${visible ? 'preferences--visible' : ''}`}>
       <div className="preferences__pane">
         <Button type="close" buttonText="×" toggleVisibility={toggleSettingsVisibility} />
         <h2>Settings</h2>
@@ -85,9 +81,7 @@ const Settings = ({ visible, toggleSettingsVisibility, pomoLength, setPomoLength
       </div>
     </div>
     )
-  }
   
-  return(null)
 }
 
 export default Settings

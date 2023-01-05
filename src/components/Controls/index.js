@@ -9,26 +9,34 @@ const Controls = ({
   longLength,
   setIsActive,
   setButtonText,
+
+  typeLength,
+  changeModeTimer,
 }) => {
-  const secondsLen = {pomo: pomoLength * 60,short: shortLength * 60,long: longLength * 60};
+  const handleModeChange = ({ target: { id } }) =>
+    changeModeTimer({ timerMode: id });
 
-  const handleModeChange = ({ target: {id} }) => {
-    setTimerMode(id);
-    setIsActive(false);
-    setButtonText('Comenzar');
-    setSecondsLeft(secondsLen[id]);
-  };
-
+  // setTimerMode(id);
+  // setIsActive(false);
+  // setButtonText('Comenzar');
+  // setSecondsLeft(typeLength[id] * 60);
+  const timerKeys = Object.keys(typeLength);
   return (
     <form className="controls">
-      {Object.keys(secondsLen).map((timer) => (
-        <>
-          <input type="radio" id={timer} checked={timerMode === timer} onChange={handleModeChange} />
-          <label htmlFor={timer} className="controls__button">
-            {timer !== 'pomo' ? `${timer} break` : 'pomodoro'}
-          </label>
-        </>
-      ))}
+      {timerKeys.map((timerKey) => {
+        const timerName =
+          timerKey !== 'pomo' ? `${timerKey} break` : 'pomodoro';
+        const isChecked = timerMode === timerKey;
+        return (
+          <>
+            <input type="radio" id={timerKey} checked={isChecked} onChange={handleModeChange}
+            />
+            <label htmlFor={timerKey} className="controls__button">
+              {timerName}
+            </label>
+          </>
+        );
+      })}
     </form>
   );
 };

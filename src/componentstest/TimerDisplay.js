@@ -5,6 +5,7 @@ import {
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './style.css';
+
 const TimerDisplay = ({
   timerMode,
   percentage,
@@ -14,11 +15,20 @@ const TimerDisplay = ({
   setButtonText,
 }) => { 
   const handleClick = () => {
-    if (timeLeft === '0:00') setSecondsLeft(1500);
+    if (timeLeft === '0:00') return null
 
     setIsActive(!isActive);
-    setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');;
+    setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');
   };
+
+  const changeActive = () => {
+    if (timeLeft === '0:00') return null
+    const text = buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar'
+    setState(prevState => ({
+      ...prevState, isActive: !prevState.isActive,
+      buttonText: text
+    }))
+  }
 
   let timesUpMsg =
     timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';

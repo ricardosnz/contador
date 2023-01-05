@@ -4,8 +4,16 @@ import Header from './components/Header';
 import Controls from './components/Controls';
 import TimerDisplay from './components/TimerDisplay';
 import Button from './components/Button';
-import Settings from './components/Settings';
+import Settings from './componentstest/Settings';
 import { useState, useEffect } from 'react';
+
+const colors = { default: '#F87070', blue: '#70F3F8', purple: '#D881F8' };
+
+const fonts = {
+  kumbh: `'Kumbh Sans', sans-serif`,
+  roboto: `'Roboto Slab', serif`,
+  space: `'Space Mono', monospace`,
+};
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);
@@ -47,8 +55,34 @@ function App() {
 
   const typeLength = { pomo: pomoLength, short: shortLength, long: longLength };
 
+  const applySettings = ({ values }) => {
+    const {
+      pomoLength,
+      shortLength,
+      longLength,
+      fontPref,
+      accentColor,
+      secondsLeft,
+    } = values;
+    setPomoLength(pomoLength);
+    setShortLength(shortLength);
+    setLongLength(longLength);
+    setFontPref(fontPref);
+    setAccentColor(accentColor);
+    setSecondsLeft(secondsLeft);
+    changeStyle({ font: fontPref, color: accentColor });
+  };
+
   const calcPercentage = () =>
     (secondsLeft / (typeLength[timerMode] * 60)) * 100;
+
+  const changeTimerMode = ({ timerMode }) => {
+    // controls.js
+    setTimerMode(timerMode);
+    setIsActive(false);
+    setButtonText('Comenzar');
+    setSecondsLeft(typeLength[timerMode] * 60);
+  };
 
   return (
     <div className="pomodoro-app">
@@ -61,6 +95,7 @@ function App() {
         buttonText={buttonText}
         setButtonText={setButtonText}
         typeLength={typeLength}
+        changeModeTimer={changeTimerMode}
       />
       <TimerDisplay
         timerMode={timerMode}
@@ -76,6 +111,7 @@ function App() {
         visible={settingsVisible}
         toggleSettingsVisibility={toggleSettingsVisibility}
         visible={() => settingsVisible((prev) => !prev)}
+        applySettings={applySettings}
         setPomoLength={setPomoLength}
         setShortLength={setShortLength}
         typeLength={typeLength}
@@ -88,6 +124,11 @@ function App() {
         setSecondsLeft={setSecondsLeft}
         timerMode={timerMode}
       />
+
+      {/* <Button type="settings" toggleVisibility={toggleSettingsVisibility} />
+      <Controls />
+      <TimerDisplay /> 
+      <Settings /> */}
     </div>
   );
 }
