@@ -22,9 +22,11 @@ const Settings = ({
   applySettings,
   toggleSettingsVisibility,
 }) => {
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    const { pomodoro, shortBreak, longBreak, font, color } = target;
+    // const formData = new FormData(evt.target)
+    // const values = Object.fromEntries(formData.entries())
+    const { pomodoro, shortBreak, longBreak, font, color } = evt.target;
     const values = {
       pomoLength: pomodoro.value,
       shortLength: shortBreak.value,
