@@ -1,32 +1,22 @@
-import React, { createContext, useState, useEffect, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 import { formatTimeLeft, changeStyle } from '../utils';
 
-import reducer, {
+import {
   TOGGLE_SETTINGS_VISIBILITY,
   SET_SECONDS_LEFT,
   FINISHED_TIMER,
   CHANGE_TIMER_MODE,
   CHANGE_ACTIVE,
   APPLY_SETTINGS,
-} from './reductor';
+} from '../reducer/types';
 
-const initialState = {
-  settingsVisible: false,
-  timerMode: 'pomo', // options: pomo, short, long
-  pomoLength: 25,
-  shortLength: 3,
-  longLength: 15,
-  fontPref: 'kumbh', // options: kumbh, roboto, space
-  accentColor: 'default', // options: default, blue, purple
-  secondsLeft: 25 * 60,
-  isActive: false,
-  buttonText: 'Comenzar',
-};
+import reducerCounter, {initialState} from '../reducer'
+
 
 export const CounterContext = createContext();
 
 const CounterProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducerCounter, initialState);
 
   useEffect(() => {
     if (!state.isActive) return;
@@ -59,10 +49,10 @@ const CounterProvider = ({ children }) => {
     dispatch({ type: CHANGE_TIMER_MODE, payload: { timerMode } });
   };
 
-  const changeActive = () => {
+  const changeActive = (timerLeft) => {
     dispatch({
       type: CHANGE_ACTIVE,
-      payload: { timerLeft: formatTimeLeft(state.secondsLeft) },
+      payload: { timerLeft },
     });
   };
 
@@ -80,7 +70,7 @@ const CounterProvider = ({ children }) => {
         ...state,
         changeTimerMode,
         percentage: calcPercentage(),
-        timeleft: formatTimeLeft(state.secondsLeft),
+        timeLeft: formatTimeLeft(state.secondsLeft),
         changeActive,
         timersLength,
         applySettings,

@@ -9,18 +9,17 @@ import './style.css';
 import useCounter from '../hooks/useCounter';
 
 const TimerDisplay = () => {
-  const { timerMode, percentage, timeleft, buttonText, changeActive } =
+  const { timerMode, percentage, timeLeft, buttonText, changeActive } =
     useCounter();
   let timesUpMsg =
     timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
 
-  let timeText = timeleft === '0:00' ? timesUpMsg : timeleft;
+  let timeText = timeLeft === '0:00' ? timesUpMsg : timeLeft;
 
-  let textSize = timeleft === '0:00' ? '12px' : '28px';
-
+  let textSize = timeLeft === '0:00' ? '12px' : '28px';
 
   return (
-    <div className="timer" onClick={changeActive}>
+    <div className="timer" onClick={() => changeActive(timeLeft)}>
       <div className="timer__display">
         <CircularProgressbarWithChildren
           value={percentage}

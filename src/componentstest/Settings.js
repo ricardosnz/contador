@@ -31,9 +31,7 @@ const Settings = () => {
     evt.preventDefault();
     const formData = new FormData(evt.target);
     const values = Object.fromEntries(formData.entries());
-    values['timerMode'] = timerMode;
-    console.log(values[timerMode + 'Length'])
-    // state[action.payload.values.timerMode + 'Length'] * 60
+    values['timerLength'] = values[timerMode + 'Length'];
     applySettings({ values });
     toggleSettingsVisibility();
   };
