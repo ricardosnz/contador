@@ -1,10 +1,11 @@
-import React from 'react'
-import './style.css'
-const Header = ({ children }) => {
-  return(
-    <h1 className='header__title'>{children}</h1>
-  )
-}
+import React from 'react';
+import './style.css';
 
+import useCounter from '../../hooks/useCounter';
 
-export default Header 
+const Header = () => {
+  const { timerMode } = useCounter();
+  return <h1 className="header__title">{timerMode}</h1>;
+};
+
+export default Header;

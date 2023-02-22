@@ -14,32 +14,36 @@ const textTranform = (str) => {
   };
 };
 
-const Settings = ({
-  visible,
-  fontPref,
-  accentColor,
-  timersLength,
-  applySettings,
-  toggleSettingsVisibility,
-}) => {
+import useCounter from '../hooks/useCounter';
+
+const Settings = () => {
+  const {
+    settingsVisible,
+    fontPref,
+    accentColor,
+    timersLength,
+    timerMode,
+    applySettings,
+    toggleSettingsVisibility,
+  } = useCounter();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // const formData = new FormData(evt.target)
-    // const values = Object.fromEntries(formData.entries())
-    const { pomodoro, shortBreak, longBreak, font, color } = evt.target;
-    const values = {
-      pomoLength: pomodoro.value,
-      shortLength: shortBreak.value,
-      longLength: longBreak.value,
-      fontPref: font.value,
-      accentColor: color.value,
-    };
+    const formData = new FormData(evt.target);
+    const values = Object.fromEntries(formData.entries());
+    values['timerMode'] = timerMode;
+    console.log(values[timerMode + 'Length'])
+    // state[action.payload.values.timerMode + 'Length'] * 60
     applySettings({ values });
     toggleSettingsVisibility();
   };
 
   return (
-    <div className={`preferences ${visible ? 'preferences--visible' : ''} `}>
+    <div
+      className={`preferences ${
+        settingsVisible ? 'preferences--visible' : ''
+      } `}
+    >
       <div className="preferences__pane">
         <Button
           type="close"
@@ -53,7 +57,7 @@ const Settings = ({
             <label htmlFor="pomodoro">Pomodoro</label>
             <input
               type="number"
-              name="pomodoro"
+              name="pomoLength"
               id="pomodoro"
               min="5"
               max="90"
@@ -62,7 +66,7 @@ const Settings = ({
             <label htmlFor="short-break">Short break</label>
             <input
               type="number"
-              name="shortBreak"
+              name="shortLength"
               id="short-break"
               min="1"
               max="14"
@@ -71,7 +75,7 @@ const Settings = ({
             <label htmlFor="long-break">Long break</label>
             <input
               type="number"
-              name="longBreak"
+              name="longLength"
               id="long-break"
               min="15"
               max="30"
@@ -84,7 +88,7 @@ const Settings = ({
             <input
               type="radio"
               id="fontPref1"
-              name="font"
+              name="fontPref"
               value="kumbh"
               defaultChecked={fontPref === 'kumbh'}
             />
@@ -94,7 +98,7 @@ const Settings = ({
             <input
               type="radio"
               id="fontPref2"
-              name="font"
+              name="fontPref"
               value="roboto"
               defaultChecked={fontPref === 'roboto'}
             />
@@ -104,7 +108,7 @@ const Settings = ({
             <input
               type="radio"
               id="fontPref3"
-              name="font"
+              name="fontPref"
               value="space"
               defaultChecked={fontPref === 'space'}
             />
@@ -118,7 +122,7 @@ const Settings = ({
             <input
               type="radio"
               id="colorPref1"
-              name="color"
+              name="accentColor"
               value="default"
               defaultChecked={accentColor === 'default'}
             />
@@ -130,7 +134,7 @@ const Settings = ({
             <input
               type="radio"
               id="colorPref2"
-              name="color"
+              name="accentColor"
               value="blue"
               defaultChecked={accentColor === 'blue'}
             />
@@ -142,7 +146,7 @@ const Settings = ({
             <input
               type="radio"
               id="colorPref3"
-              name="color"
+              name="accentColor"
               value="purple"
               defaultChecked={accentColor === 'purple'}
             />

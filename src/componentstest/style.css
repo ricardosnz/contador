@@ -217,3 +217,95 @@
     font-size: 1.2rem;
   }
 }
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--background-timer);
+  border-radius: 31.5px;
+  max-width: 450px;
+  padding: 8px 6px;
+  z-index: 50;
+  overflow-x: auto;
+}
+
+.controls input[type='radio'] {
+  position: fixed;
+  opacity: 0;
+  width: 0;
+}
+
+.controls__button {
+  display: grid;
+  place-content: center;
+  border-radius: 26.5px;
+  background: var(--background-timer);
+  padding: 0.8rem 0.5rem;
+
+  font-family: var(--font-current);
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--text);
+  transition: background 200ms ease-in, color 200ms ease-in,
+    opacity 200ms ease-in;
+}
+
+.controls input[type='radio']:checked + label,
+.controls input[type='radio']:hover + label {
+  color: var(--text-dark);
+  opacity: 1;
+  background: var(--accent-color);
+}
+
+@media (min-width: 500px) {
+  .controls__button {
+    padding: 1.2rem 1rem;
+    font-size: 14px;
+  }
+}
+.pomodoro-app__preferences {
+  transition: transform 200ms ease-in;
+}
+.pomodoro-app__preferences:hover {
+  transform: scale(1.4) rotate(60deg);
+}
+.pomodoro-app__preferences:active {
+  transform: scale(0.8);
+}
+
+.pane__close-preferences {
+  position: absolute;
+  right: 34px;
+  top: 28px;
+  color: var(--background-body);
+  opacity: 0.5;
+  transform: scale(2.5);
+  transition: transform 200ms ease-in, opacity 200ms ease-in;
+}
+.pane__close-preferences:hover {
+  opacity: 1;
+}
+.pane__close-preferences:active {
+  transform: scale(2);
+}
+
+.pane__apply-preferences {
+  position: absolute;
+  left: calc(50% - 60px);
+  bottom: -2rem;
+  padding: 20px 40px;
+  border-radius: 36.5px;
+  font-weight: bold;
+  opacity: 0.8;
+  font-size: 16px;
+  background-color: var(--default-accent);
+  color: #ffffff;
+  transition: transform 200ms ease-in, opacity 200ms ease-in;
+}
+.pane__apply-preferences:hover {
+  opacity: 1;
+}
+.pane__apply-preferences:active {
+  transform: scale(0.8);
+}

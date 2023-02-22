@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { changeStyle, formatTimeLeft } from '../utils';
 
 
@@ -17,90 +17,65 @@ const initialState = {
 
 
 export default function useCounter() {
-  // const [state, setState] = useState(initialState)
-  const [settingsVisible, setSettingsVisible] = useState(false);
-  const [timerMode, setTimerMode] = useState('pomo'); // options: pomo, short, long
-  const [pomoLength, setPomoLength] = useState(25);
-  const [shortLength, setShortLength] = useState(3);
-  const [longLength, setLongLength] = useState(15);
-  const [fontPref, setFontPref] = useState('kumbh'); // options: kumbh, roboto, space
-  const [accentColor, setAccentColor] = useState('default'); // options: default, blue, purple
-  const [secondsLeft, setSecondsLeft] = useState(pomoLength * 60);
-  const [isActive, setIsActive] = useState(false);
-  const [buttonText, setButtonText] = useState('Comenzar');
+  const [state, setState] = useState(initialState)
 
   useEffect(() => {
-    if (isActive) {
-      const interval = setInterval(() => {
-        setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      }, 1000);
+    if (!state.isActive) return
+    const interval = setInterval(() => {
+      setState(prevState => ({...prevState, secondsLeft: prevState.secondsLeft - 1}))
+    }, 1000);
 
-      if (secondsLeft === 0) {
-        clearInterval(interval);
-        setIsActive(false);
-        setButtonText('');
-      }
-
-      return () => clearInterval(interval);
+    if (state.secondsLeft === 0) {
+      clearInterval(interval);
+      setState(prevState => ({...prevState, isActive: false, buttonText: ''}))
     }
-  }, [isActive, secondsLeft]);
+
+    return () => clearInterval(interval);
+  }, [state.isActive, state.secondsLeft]);
+
+  const relog = useCallback(() => {
+    
+  },[])
 
   const toggleSettingsVisibility = () => {
-    setSettingsVisible(!settingsVisible);
+    setState(prevState => ({...prevState, settingsVisible:!prevState.settingsVisible}))
   };
-
+  
   const changeActive = () => {
-    if (formatTimeLeft(secondsLeft) === '0:00') return null;
-
-    const text = ['Comenzar', 'Reanudar'].includes(buttonText)
-      ? 'Pausa'
-      : 'Reanudar';
-    setIsActive(!isActive);
-    setButtonText(text);
+    if (formatTimeLeft(state.secondsLeft) === '0:00') return null;
+    
+    const text = ['Comenzar', 'Reanudar'].includes(state.buttonText)
+    ? 'Pausa'
+    : 'Reanudar';
+    
+    setState(prevState => ({...prevState, isActive:!prevState.isActive, buttonText: text}))
   };
-
-  const applySettings = ({ values }) => {
-    const { pomoLength, shortLength, longLength, fontPref, accentColor } =
-      values;
-    setPomoLength(pomoLength);
-    setShortLength(shortLength);
-    setLongLength(longLength);
-    setFontPref(fontPref);
-    setAccentColor(accentColor);
-    setSecondsLeft(timersLength[timerMode] * 60);
-    changeStyle({ font: fontPref, color: accentColor });
-  };
-
   const timersLength = {
-    pomo: pomoLength,
-    short: shortLength,
-    long: longLength,
+    pomo: state.pomoLength,
+    short: state.shortLength,
+    long: state.longLength, 
   };
 
+  const applySettings = ({ values }) => {    
+    setState(prevState => ({...prevState, ...values, secondsLeft: timersLength[state.timerMode] * 60}))
+    changeStyle({ font: values.fontPref, color: values.accentColor });
+  };
+  
+  
   const changeTimerMode = ({ timerMode }) => {
-    setTimerMode(timerMode);
-    setIsActive(false);
-    setButtonText('Comenzar');
-    setSecondsLeft(timersLength[timerMode] * 60);
+    setState(prevState => ({...prevState, timerMode, isActive: false, buttonText: 'Comenzar', secondsLeft: timersLength[timerMode] * 60}))
   };
 
   const calcPercentage = () =>
-    (secondsLeft / (timersLength[timerMode] * 60)) * 100;
+    (state.secondsLeft / (timersLength[state.timerMode] * 60)) * 100;
 
 
   return {
-    timerMode,
+    ...state,
     changeTimerMode,
     percentage: calcPercentage(),
-    timeleft: formatTimeLeft(secondsLeft),
-    isActive,
-    setIsActive,
-    buttonText,
-    setButtonText,
+    timeleft: formatTimeLeft(state.secondsLeft),
     changeActive,
-    settingsVisible,
-    fontPref,
-    accentColor,
     timersLength,
     applySettings,
     toggleSettingsVisibility,

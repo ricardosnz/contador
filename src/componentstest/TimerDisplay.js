@@ -6,43 +6,28 @@ import {
 import 'react-circular-progressbar/dist/styles.css';
 import './style.css';
 
-const TimerDisplay = ({
-  timerMode,
-  percentage,
-  timeLeft,
-  setIsActive,
-  buttonText,
-  setButtonText,
-  changeActive
-}) => {
-  
-  const handleClick = () => {
-    if (timeLeft === '0:00') return null
+import useCounter from '../hooks/useCounter';
 
-    setIsActive(prev => !prev);
-    setButtonText(buttonText === 'Comenzar' || buttonText === 'Reanudar' ? 'Pausa' : 'Reanudar');
-  };
-
-  
-
+const TimerDisplay = () => {
+  const { timerMode, percentage, timeleft, buttonText, changeActive } =
+    useCounter();
   let timesUpMsg =
     timerMode === 'pomo' ? 'Tiempo de descanso' : 'Volver al trabajo!';
 
-  let timeText = timeLeft === '0:00' ? timesUpMsg : timeLeft;
+  let timeText = timeleft === '0:00' ? timesUpMsg : timeleft;
 
-  let textSize = timeLeft === '0:00' ? '12px' : '28px';
+  let textSize = timeleft === '0:00' ? '12px' : '28px';
+
 
   return (
     <div className="timer" onClick={changeActive}>
       <div className="timer__display">
-      <CircularProgressbarWithChildren
+        <CircularProgressbarWithChildren
           value={percentage}
           text={timeText}
           strokeWidth={3}
           styles={buildStyles({
-            // How long animation takes to go from one percentage to another, in seconds
             pathTransitionDuration: 0.5,
-            // Colors & Fonts
             pathColor: 'var(--accent-color)',
             textColor: 'var(--text)',
             textSize: textSize,
