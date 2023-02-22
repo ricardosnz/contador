@@ -1,9 +1,23 @@
 import { useState, useEffect } from 'react';
-import { changeStyle } from '../utils';
+import { changeStyle, formatTimeLeft } from '../utils';
 
+
+const initialState = {
+  settingsVisible: false,
+  timerMode: 'pomo', // options: pomo, short, long
+  pomoLength: 25,
+  shortLength: 3,
+  longLength: 15,
+  fontPref: 'kumbh', // options: kumbh, roboto, space
+  accentColor: 'default', // options: default, blue, purple
+  secondsLeft: 25 * 60,
+  isActive: false,
+  buttonText: 'Comenzar',
+};
 
 
 export default function useCounter() {
+  // const [state, setState] = useState(initialState)
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [timerMode, setTimerMode] = useState('pomo'); // options: pomo, short, long
   const [pomoLength, setPomoLength] = useState(25);
@@ -31,28 +45,20 @@ export default function useCounter() {
     }
   }, [isActive, secondsLeft]);
 
-  const toggleSettingsVisibility = (event) => {
+  const toggleSettingsVisibility = () => {
     setSettingsVisible(!settingsVisible);
   };
-
-  // let formatSecondsToText = {timeText: "24:52", timeLeft: "24:52"}
-  const formatTimeLeft = (seconds) =>
-    `${Math.floor(seconds / 60)}:${
-      seconds % 60 > 9 ? seconds % 60 : '0' + (seconds % 60)
-    }`;
 
   const changeActive = () => {
     if (formatTimeLeft(secondsLeft) === '0:00') return null;
 
-    const text =
-      buttonText === 'Comenzar' || buttonText === 'Reanudar'
-        ? 'Pausa'
-        : 'Reanudar';
+    const text = ['Comenzar', 'Reanudar'].includes(buttonText)
+      ? 'Pausa'
+      : 'Reanudar';
     setIsActive(!isActive);
     setButtonText(text);
   };
 
-  
   const applySettings = ({ values }) => {
     const { pomoLength, shortLength, longLength, fontPref, accentColor } =
       values;
@@ -65,18 +71,22 @@ export default function useCounter() {
     changeStyle({ font: fontPref, color: accentColor });
   };
 
-  const timersLength = { pomo: pomoLength, short: shortLength, long: longLength };
-
-  const calcPercentage = () =>
-    (secondsLeft / (timersLength[timerMode] * 60)) * 100;
+  const timersLength = {
+    pomo: pomoLength,
+    short: shortLength,
+    long: longLength,
+  };
 
   const changeTimerMode = ({ timerMode }) => {
-    // controls.js
     setTimerMode(timerMode);
     setIsActive(false);
     setButtonText('Comenzar');
     setSecondsLeft(timersLength[timerMode] * 60);
   };
+
+  const calcPercentage = () =>
+    (secondsLeft / (timersLength[timerMode] * 60)) * 100;
+
 
   return {
     timerMode,
@@ -93,6 +103,6 @@ export default function useCounter() {
     accentColor,
     timersLength,
     applySettings,
-    toggleSettingsVisibility}
+    toggleSettingsVisibility,
+  };
 }
-

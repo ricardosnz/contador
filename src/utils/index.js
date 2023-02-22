@@ -9,3 +9,9 @@ export const changeStyle = ({ font, color }) => {
   style.setProperty('--font-current', fonts[font]);
   style.setProperty('--accent-color', colors[color]);
 };
+
+// let formatSecondsToText = {timeText: "24:52", timeLeft: "24:52"}
+export const formatTimeLeft = (seconds) =>
+`${Math.floor(seconds / 60)}:${
+  seconds % 60 > 9 ? seconds % 60 : '0' + (seconds % 60)
+}`;

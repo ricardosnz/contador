@@ -10,9 +10,7 @@ import { useState, useEffect } from 'react';
 
 import { changeStyle } from './utils';
 
-import useCounter from './componentstest/useCounter'
-
-
+import useCounter from './componentstest/useCounter';
 
 function App() {
   const {
@@ -31,8 +29,7 @@ function App() {
     timersLength,
     applySettings,
     toggleSettingsVisibility,
-   } =  useCounter()
-   
+  } = useCounter();
 
   return (
     <div className="pomodoro-app">
