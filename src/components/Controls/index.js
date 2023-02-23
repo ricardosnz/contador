@@ -1,8 +1,11 @@
 import React from 'react';
 import './style.css';
+import useCounter from '../../hooks/useCounter'
 
-export default function Controls ({ timerMode, changeModeTimer }) {
-  const handleModeChange = ({ target: { id } }) => changeModeTimer({ timerMode: id });
+export default function Controls () {
+  const { timerMode, changeTimerMode } = useCounter()
+
+  const handleModeChange = ({ target: { id } }) => changeTimerMode({ timerMode: id });
   return (
     <form className="controls">
       <input type="radio" id="pomo" checked={"pomo" === timerMode} onChange={handleModeChange}/>

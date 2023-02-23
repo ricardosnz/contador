@@ -10,8 +10,7 @@ import {
   APPLY_SETTINGS,
 } from '../reducer/types';
 
-import reducerCounter, {initialState} from '../reducer'
-
+import reducerCounter, { initialState } from '../reducer';
 
 export const CounterContext = createContext();
 
@@ -21,10 +20,7 @@ const CounterProvider = ({ children }) => {
   useEffect(() => {
     if (!state.isActive) return;
     const interval = setInterval(() => {
-      dispatch({
-        type: SET_SECONDS_LEFT,
-        payload: { secondsLeft: state.secondsLeft - 1 },
-      });
+      dispatch({ type: SET_SECONDS_LEFT,payload: { secondsLeft: state.secondsLeft - 1 } });
     }, 1000);
 
     if (state.secondsLeft === 0) {
@@ -35,12 +31,6 @@ const CounterProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [state.isActive, state.secondsLeft]);
 
-  const timersLength = {
-    pomo: state.pomoLength,
-    short: state.shortLength,
-    long: state.longLength,
-  };
-
   const toggleSettingsVisibility = () => {
     dispatch({ type: TOGGLE_SETTINGS_VISIBILITY });
   };
@@ -50,10 +40,7 @@ const CounterProvider = ({ children }) => {
   };
 
   const changeActive = (timerLeft) => {
-    dispatch({
-      type: CHANGE_ACTIVE,
-      payload: { timerLeft },
-    });
+    dispatch({ type: CHANGE_ACTIVE, payload: { timerLeft } });
   };
 
   const applySettings = ({ values }) => {
@@ -61,8 +48,7 @@ const CounterProvider = ({ children }) => {
     changeStyle({ font: values.fontPref, color: values.accentColor });
   };
 
-  const calcPercentage = () =>
-    (state.secondsLeft / (state[state.timerMode + 'Length'] * 60)) * 100;
+  const calcPercentage = () => (state.secondsLeft / (state[state.timerMode + 'Length'] * 60)) * 100;
 
   return (
     <CounterContext.Provider
@@ -72,7 +58,6 @@ const CounterProvider = ({ children }) => {
         percentage: calcPercentage(),
         timeLeft: formatTimeLeft(state.secondsLeft),
         changeActive,
-        timersLength,
         applySettings,
         toggleSettingsVisibility,
       }}

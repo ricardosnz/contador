@@ -23,6 +23,7 @@ export const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case TOGGLE_SETTINGS_VISIBILITY:
+      console.log({ settingsVisible: state.settingsVisible });
       return { ...state, settingsVisible: !state.settingsVisible };
     case SET_SECONDS_LEFT:
       return { ...state, secondsLeft: action.payload.secondsLeft };

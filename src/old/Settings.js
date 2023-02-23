@@ -5,26 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../components/Button';
 
-import { Colors, Fonts } from './Colors';
-
-const textTranform = (str) => {
-  let [first, ...rest] = str.split(' ');
-  return {
-    kebab: str.split(' ').join('-'),
-    camel: `${first}${rest
-      .map((elem) => elem[0].toUpperCase() + elem.substring(1))
-      .join('')}`,
-  };
-};
-
 import useCounter from '../hooks/useCounter';
+
 const Settings = () => {
   const {
     settingsVisible,
     fontPref,
     accentColor,
-    timersLength,
     timerMode,
+    pomoLength,
+    shortLength,
+    longLength,
     applySettings,
     toggleSettingsVisibility,
   } = useCounter();
@@ -33,9 +24,9 @@ const Settings = () => {
     evt.preventDefault();
     const formData = new FormData(evt.target);
     const values = Object.fromEntries(formData.entries());
-    values['timerLength'] = values[timerMode + 'Length'];
+    values['timerLength'] = values[`${timerMode}Length`];
     applySettings({ values });
-    toggleSettingsVisibility();
+    // toggleSettingsVisibility();
   };
 
   return (
@@ -61,7 +52,7 @@ const Settings = () => {
               id="pomodoro"
               min="5"
               max="90"
-              defaultValue={timersLength.pomo}
+              defaultValue={pomoLength}
             />
             <label htmlFor="short-break">Short break</label>
             <input
@@ -70,7 +61,7 @@ const Settings = () => {
               id="short-break"
               min="1"
               max="14"
-              defaultValue={timersLength.short}
+              defaultValue={shortLength}
             />
             <label htmlFor="long-break">Long break</label>
             <input
@@ -79,7 +70,7 @@ const Settings = () => {
               id="long-break"
               min="15"
               max="30"
-              defaultValue={timersLength.long}
+              defaultValue={longLength}
             />
           </div>
 

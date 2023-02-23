@@ -6,7 +6,7 @@ import TimerDisplay from './components/TimerDisplay';
 import Button from './components/Button';
 import Settings from './components/Settings';
 
-import TodoProvider from './componentstest/Timer';
+
 
 function App() {
   const [settingsVisible, setSettingsVisible] = useState(false);

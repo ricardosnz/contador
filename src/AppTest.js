@@ -1,16 +1,11 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import Controls from './componentstest/Controls';
-import TimerDisplay from './componentstest/TimerDisplay';
-import Button from './componentstest/Button';
-import Settings from './componentstest/Settings';
-
 import CounterProvider from './context/CounterContext';
-
-import useCounter from './componentstest/useCounter';
-
-
+import Header from './components/Header';
+import Controls from './components/Controls';
+import TimerDisplay from './components/TimerDisplay';
+import Button from './components/Button';
+import Settings from './componentstest/Settings';
 
 function App() {
   return (

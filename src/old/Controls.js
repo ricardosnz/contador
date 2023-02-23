@@ -4,7 +4,7 @@ import './style.css';
 import useCounter from '../hooks/useCounter'
 
 export default function Controls () {
-  const {timerMode, changeTimerMode} = useCounter()
+  const { timerMode, changeTimerMode } = useCounter()
 
   const handleModeChange = ({ target: { id } }) => changeTimerMode({ timerMode: id });
   return (

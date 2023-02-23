@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -8,6 +9,8 @@ import {
   changeActive,
   applySettings,
 } from './counterReducer';
+
+import { formatTimeLeft, changeStyle } from '../utils';
 
 const useCounter = () => {
   const state = useSelector((state) => state.counter);

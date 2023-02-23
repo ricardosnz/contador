@@ -19,6 +19,7 @@ const counterSlice = createSlice({
   reducers: {
     toggleSettingsVisibility: (state) => {
       state.settingsVisible = !state.settingsVisible;
+      // cosnole.log(state)
     },
     setSecondsLeft: (state, { payload }) => {
       state.secondsLeft = payload.secondsLeft;
@@ -38,13 +39,11 @@ const counterSlice = createSlice({
       const text = ['Comenzar', 'Reanudar'].includes(state.buttonText)
         ? 'Pausa'
         : 'Reanudar';
-      state = {...state, isActive: !state.isActive, buttonText: text }
+      state = { ...state, isActive: !state.isActive, buttonText: text };
     },
     applySettings: (state, { payload }) => {
       const secondsLeft = payload.values.timerLength * 60;
-      console.log(state)
       state = { ...state, ...payload.values, secondsLeft };
-      console.log(state)
     },
   },
 });
