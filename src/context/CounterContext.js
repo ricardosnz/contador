@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useReducer } from 'react';
 import { formatTimeLeft, changeStyle } from '../utils';
 
+import reducerCounter, { initialState } from '../reducer';
 import {
   TOGGLE_SETTINGS_VISIBILITY,
   SET_SECONDS_LEFT,
@@ -10,7 +11,6 @@ import {
   APPLY_SETTINGS,
 } from '../reducer/types';
 
-import reducerCounter, { initialState } from '../reducer';
 
 export const CounterContext = createContext();
 

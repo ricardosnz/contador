@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import CounterProvider from './context/CounterContext';
 import Header from './components/Header';
 import Controls from './components/Controls';
 import TimerDisplay from './components/TimerDisplay';

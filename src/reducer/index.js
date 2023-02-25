@@ -9,12 +9,12 @@ import {
 
 export const initialState = {
   settingsVisible: false,
-  timerMode: 'pomo', // options: pomo, short, long
+  timerMode: 'pomo',
   pomoLength: 25,
   shortLength: 3,
   longLength: 15,
-  fontPref: 'kumbh', // options: kumbh, roboto, space
-  accentColor: 'default', // options: default, blue, purple
+  fontPref: 'kumbh',
+  accentColor: 'default',
   secondsLeft: 25 * 60,
   isActive: false,
   buttonText: 'Comenzar',
@@ -23,7 +23,6 @@ export const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case TOGGLE_SETTINGS_VISIBILITY:
-      console.log({ settingsVisible: state.settingsVisible });
       return { ...state, settingsVisible: !state.settingsVisible };
     case SET_SECONDS_LEFT:
       return { ...state, secondsLeft: action.payload.secondsLeft };
