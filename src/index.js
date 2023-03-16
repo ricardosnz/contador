@@ -1,11 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import AppTest from './AppTest';
+import PomoProvider from './context/CounterContext';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AppTest />
-  </React.StrictMode>,
-  document.getElementById('root')
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
+  <PomoProvider>
+    <App />
+  </PomoProvider>
 );
